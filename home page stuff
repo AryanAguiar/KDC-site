@@ -20,14 +20,25 @@
 
      <section className='our-services'>
         <div className='services'>
-          <h1>Our Services</h1>
+          <Typography
+            variant="h4"
+            sx={{
+              fontSize: { xs: "22px", sm: "26px", md: "32px" }, // Smaller on mobile
+              fontWeight: "bold",
+              textAlign: "center",
+              mb: 3
+            }}
+          >
+            Our Services
+          </Typography>
+
           <Box
             sx={{
               display: "flex",
               flexWrap: "wrap",
               rowGap: 3, // Keeps vertical spacing consistent
               justifyContent: "center",
-              p: 3
+              p: { xs: .1, sm: 1, md: 1 }
             }}
           >
             {services.map((service, index) => (
@@ -41,17 +52,49 @@
                   mx: "9px" // Adds more space between cards
                 }}
               >
-                <Card sx={{ p: 3, bgcolor: "#F4F4F4", borderRadius: 3, boxShadow: 0, width: "100%" }}>
-                  <CardContent>
+                <Card
+                  sx={{
+                    bgcolor: "#F4F4F4",
+                    borderRadius: 3,
+                    boxShadow: 0,
+                    width: "100%",
+                    p: { xs: 1, sm: 1, md: 1 }
+                  }}
+                >
+                  <CardContent
+                    sx={{
+                      p: { xs: 1, sm: 1, md: 1 } // Smaller padding on small screens
+                    }}
+                  >
                     <Avatar sx={{ bgcolor: "#D3D3D3", width: 40, height: 40, mb: 2 }} />
-                    <Typography variant="h6" fontWeight="bold" sx={{ fontSize: '24px', fontWeight: '500' }}>{service.title}</Typography>
-                    <Typography variant="body2" color="textSecondary" sx={{ fontSize: '20px', fontWeight: '400' }}>{service.description}</Typography>
+
+                    {/* Service Title */}
+                    <Typography
+                      variant="h6"
+                      fontWeight="bold"
+                      sx={{
+                        fontSize: { xs: "14px", sm: "18px", md: "22px" } // Responsive font size
+                      }}
+                    >
+                      {service.title}
+                    </Typography>
+
+                    {/* Service Description */}
+                    <Typography
+                      variant="body2"
+                      color="textSecondary"
+                      sx={{
+                        fontSize: { xs: "10px", sm: "12px", md: "15px" } // Smaller font on mobile
+                      }}
+                    >
+                      {service.description}
+                    </Typography>
                   </CardContent>
+
                 </Card>
               </Box>
             ))}
           </Box>
-
-
         </div>
       </section>
+
