@@ -1,0 +1,17 @@
+      <section className="home">
+        <div className="home-container">
+          {/* Left Content (Text) */}
+          <div className="home-text">
+            <h1>“ Transforming Ideas Into Digital Realities ”</h1>
+            <p>
+              Delivering Custom Web Development Solutions That Drive Innovation, Performance, And Seamless User Experiences.
+            </p>
+            <Button style={{ backgroundColor: 'black' }} className="home-button" variant="contained" sx={{ textTransform: 'none' }}>Get a Free Consultation</Button>
+          </div>
+
+          {/* Right Content (Image) */}
+          <div className="home-image">
+            <img src={heroImg} alt="Hero" />
+          </div>
+        </div>
+      </section>
