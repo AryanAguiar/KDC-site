@@ -1,4 +1,5 @@
-      <Box
+  <section className="services">
+        <Box
           component="section"
           sx={{
             display: "flex",
@@ -24,25 +25,25 @@
               fontWeight="700"
               gutterBottom
               sx={{
-                fontSize: { xs: "20px", sm: "22px", md: "24px", lg: "25px" },
+                fontSize: { xs: "20px", sm: "22px", md: "24px", lg: "25px", "xl": "32px" },
                 display: "inline-block",
                 p: 1, // Padding inside the heading border
               }}
             >
-              {`“Transforming Ideas Into Digital Realities”`}
+              {"Web & CMS Development"}
             </Typography>
             <Typography
               variant="body1"
               color="textSecondary"
               mb={3}
               sx={{
-                fontSize: { xs: "12px", sm: "13px", md: "14px", lg: "15px" },
+                fontSize: { xs: "13px", sm: "14px", md: "15px", lg: "17px", "xl": "20px" },
                 display: "inline-block",
+                maxWidth: { xs: "312px", sm: "413px", md: "514px", lg: "605px", "xl": "704px" },
                 p: 1,
               }}
             >
-              Delivering Custom Web Development Solutions That Drive Innovation,
-              Performance, And Seamless User Experiences.
+              "Providing tailored Web and CMS development solutions to empower seamless content management and dynamic online experiences
             </Typography>
             <Button
               sx={{
@@ -81,87 +82,4 @@
             />
           </Box>
         </Box>
-
-
-
-
-     <section className='our-services'>
-        <div className='services'>
-          <Typography
-            variant="h4"
-            sx={{
-              fontSize: { xs: "22px", sm: "26px", md: "32px" }, // Smaller on mobile
-              fontWeight: "bold",
-              textAlign: "center",
-              mb: 3
-            }}
-          >
-            Our Services
-          </Typography>
-
-          <Box
-            sx={{
-              display: "flex",
-              flexWrap: "wrap",
-              rowGap: 3, // Keeps vertical spacing consistent
-              justifyContent: "center",
-              p: { xs: .1, sm: 1, md: 1 }
-            }}
-          >
-            {services.map((service, index) => (
-              <Box
-                key={index}
-                sx={{
-                  width: "calc(45% - 46px)", // Slightly increases horizontal spacing
-                  minWidth: "300px",
-                  display: "flex",
-                  justifyContent: "center",
-                  mx: "9px" // Adds more space between cards
-                }}
-              >
-                <Card
-                  sx={{
-                    bgcolor: "#F4F4F4",
-                    borderRadius: 3,
-                    boxShadow: 0,
-                    width: "100%",
-                    p: { xs: 1, sm: 1, md: 1 }
-                  }}
-                >
-                  <CardContent
-                    sx={{
-                      p: { xs: 1, sm: 1, md: 1 } // Smaller padding on small screens
-                    }}
-                  >
-                    <Avatar sx={{ bgcolor: "#D3D3D3", width: 40, height: 40, mb: 2 }} />
-
-                    {/* Service Title */}
-                    <Typography
-                      variant="h6"
-                      fontWeight="bold"
-                      sx={{
-                        fontSize: { xs: "14px", sm: "18px", md: "22px" } // Responsive font size
-                      }}
-                    >
-                      {service.title}
-                    </Typography>
-
-                    {/* Service Description */}
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      sx={{
-                        fontSize: { xs: "10px", sm: "12px", md: "15px" } // Smaller font on mobile
-                      }}
-                    >
-                      {service.description}
-                    </Typography>
-                  </CardContent>
-
-                </Card>
-              </Box>
-            ))}
-          </Box>
-        </div>
       </section>
-
