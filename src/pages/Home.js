@@ -55,7 +55,7 @@ const Home = () => {
         "❝ From initial consultation to final delivery, their team demonstrated unmatched professionalism and expertise. They not only met our expectations but helped us achieve substantial growth. ❞",
     },
   ];
-  
+
 
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
 
@@ -88,7 +88,7 @@ const Home = () => {
               fontWeight="700"
               gutterBottom
               sx={{
-                fontSize: { xs: "20px", sm: "22px", md: "24px", lg: "25px" },
+                fontSize: { xs: "20px", sm: "22px", md: "24px", lg: "25px", "xl": "32px" },
                 display: "inline-block",
                 p: 1, // Padding inside the heading border
               }}
@@ -100,8 +100,9 @@ const Home = () => {
               color="textSecondary"
               mb={3}
               sx={{
-                fontSize: { xs: "12px", sm: "13px", md: "14px", lg: "15px" },
+                fontSize: { xs: "13px", sm: "14px", md: "15px", lg: "17px", "xl": "20px" },
                 display: "inline-block",
+                maxWidth: { xs: "312px", sm: "413px", md: "514px", lg: "605px", "xl": "704px" },
                 p: 1,
               }}
             >
@@ -146,74 +147,118 @@ const Home = () => {
           </Box>
         </Box>
 
-
-
-
       </section>
 
-      <section className='about' ref={ref} style={{ textAlign: 'center', padding: '50px 20px', backgroundColor: '#F5F5F5' }}>
-        <h2>Trusted for Over a Decade</h2>
-        <p style={{ maxWidth: '650px', margin: '0 auto' }}>
-          KDigitalCurry is a leading mobile and web app development company in Mumbai with over 10+ years of experience.
-          We create human-centric, scalable solutions, delivering full-stack services across various domains.
-        </p>
+      <section
+        className="about"
+        ref={ref}
+        style={{
+          textAlign: "center",
+          padding: "50px 20px",
+          backgroundColor: "#F5F5F5",
+        }}
+      >
+        <Typography
+          variant="h2"
+          sx={{
+            fontSize: { xs: "24px", sm: "28px", md: "32px" },
+            marginBottom: "10px",
+            fontWeight: "600",
+
+          }}
+        >
+          Trusted for Over a Decade
+        </Typography>
+
+        <Typography
+          sx={{
+            maxWidth: { xs: "600px", sm: "746px", md: "946px" },
+            margin: "0 auto",
+            padding: "0 10px",
+            fontSize: { xs: "16px", sm: "18px", md: "20px" },
+          }}
+        >
+          KDigitalCurry is a leading mobile and web app development company in Mumbai
+          with over 10+ years of experience. We create human-centric, scalable
+          solutions, delivering full-stack services across various domains.
+        </Typography>
+
 
         {/* Flexbox Stats Section */}
-        <div
+        <Box
           style={{
-            display: 'flex',
-            flexWrap: 'wrap', // Allows wrapping on smaller screens
-            justifyContent: 'center',
-            gap: '24px', // Reduce spacing between boxes
-            marginTop: '20px', // Reduce top margin
-            padding: '30px 80px' // Reduce overall padding
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "24px",
+            marginTop: "20px",
+            padding: { xs: "20px 10px", sm: "30px 15px", md: "50px 20px", lg: "60px 30px" },
           }}
         >
           {stats.map((stat, index) => (
             <Paper
               key={index}
               elevation={3}
-              style={{
-                textAlign: 'center',
-                padding: '12px', // Reduce internal padding
-                borderRadius: '8px', // Slightly smaller border radius
-                backgroundColor: 'white',
-                flex: '1 1 180px', // Reduce base size
-                maxWidth: '220px', // Reduce max width
-                minWidth: '150px', // Reduce min width
-                height: '120px', // Reduce height
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'center',
+              sx={{
+                textAlign: "center",
+                padding: "12px",
+                borderRadius: "8px",
+                backgroundColor: "white",
+                flex: "1 1 180px",
+                maxWidth: { xs: "100px", sm: "200px", md: "208px", lg: "243px", 'xl': "333px" }, // Responsive width
+                minWidth: "150px",
+                height: { xs: "100px", sm: "190px", md: "150px", lg: "170px", 'xl': "227px" }, // Responsive height
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                boxShadow: "4px 4px 8px rgba(0, 0, 0, 0.1)",
               }}
             >
-              <Typography variant="h5" fontWeight="bold"> {/* Reduce font size */}
-                {inView ? <CountUp start={0} end={stat.value} duration={3} /> : 0}{stat.suffix}
+              <Typography
+                variant="h5"
+                fontWeight="bold"
+                sx={{
+                  fontSize: { xs: "19px", sm: "20px", md: "25px", lg: "28px", "xl": "32px" }, // Decrease size on smaller screens
+                }}
+              >
+                {inView ? <CountUp start={0} end={stat.value} duration={3} /> : 0}
+                {stat.suffix}
               </Typography>
-              <Typography variant="body2" color="text.secondary"> {/* Smaller text */}
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                sx={{
+                  fontSize: { xs: "14px", sm: "15px", md: "16px", lg: "17px", "xl": "20px" },
+                }}
+              >
                 {stat.label}
               </Typography>
               {stat.subLabel && (
-                <Typography variant="caption" color="text.secondary"> {/* Even smaller subLabel */}
+                <Typography
+                  variant="caption"
+                  color="text.secondary"
+                  sx={{
+                    fontSize: { xs: "14px", sm: "15px", md: "16px", lg: "17px", "xl": "20px" },
+                  }}
+                >
                   {stat.subLabel}
                 </Typography>
               )}
             </Paper>
           ))}
-        </div>
-
+        </Box>
       </section>
 
-      <section className='our-services'>
-        <div className='services'>
+      <section className="our-services">
+        <div className="services">
           <Typography
             variant="h2"
             sx={{
-              fontSize: { xs: "22px", sm: "26px", md: "32px" }, // Smaller on mobile
+              fontSize: { xs: "22px", sm: "26px", md: "32px" }, // Responsive font size
               fontWeight: "bold",
               textAlign: "center",
-              mb: 3
+              mb: 3,
             }}
           >
             Our Services
@@ -225,88 +270,100 @@ const Home = () => {
               flexWrap: "wrap",
               rowGap: 3, // Keeps vertical spacing consistent
               justifyContent: "center",
-              p: { xs: .1, sm: 1, md: 1 }
+              p: { xs: 0.1, sm: 1, md: 1 },
             }}
           >
-            {services.map((service, index) => (
-              <Box
-                key={index}
-                sx={{
-                  width: "calc(45% - 46px)", // Slightly increases horizontal spacing
-                  minWidth: "300px",
-                  display: "flex",
-                  justifyContent: "center",
-                  mx: "9px" // Adds more space between cards
-                }}
-              >
-                <Card
+            {services.map((service, index) => {
+
+              return (
+                <Box
+                  key={index}
                   sx={{
-                    bgcolor: "#F4F4F4",
-                    borderRadius: 3,
-                    boxShadow: 0,
-                    width: "100%",
-                    p: { xs: 1, sm: 1, md: 1 }
+                    width: "calc(45% - 46px)", // Slightly increases horizontal spacing
+                    minWidth: "300px",
+                    display: "flex",
+                    justifyContent: "center",
+                    mx: "9px", // Adds more space between cards
+                    mb: { xs: "8px", sm: "10px", md: "16px", lg: "10px" }, // Adds vertical spaci
                   }}
                 >
-                  <CardContent
+                  <Card
                     sx={{
-                      p: { xs: 1, sm: 1, md: 1 } // Smaller padding on small screens
+                      bgcolor: "#F4F4F4",
+                      borderRadius: 3,
+                      boxShadow: 0,
+                      width: { xs: "250px", sm: "300px", md: "470px", lg: "500px", "xl": "698px" },
+                      height: { xs: "178px", sm: "240px", md: "228px", lg: "240px", "xl": "230px" },
+                      p: { xs: 1, sm: 3, md: 3, lg: 5 }
                     }}
                   >
-                    <Avatar sx={{ bgcolor: "#D3D3D3", width: 40, height: 40, mb: 2 }} />
-
-                    {/* Service Title */}
-                    <Typography
-                      variant="h6"
-                      fontWeight="bold"
+                    <CardContent
                       sx={{
-                        fontSize: { xs: "14px", sm: "18px", md: "22px" } // Responsive font size
+                        p: { xs: 1, sm: 1, md: 1 }, // Smaller padding on small screens
                       }}
                     >
-                      {service.title}
-                    </Typography>
+                      <Avatar sx={{
+                        bgcolor: "#D3D3D3",
+                        width: { xs: 40, sm: 48, md: 50, lg: 54, "xl": "64" }, // Decrease width on smaller screens
+                        height: { xs: 40, sm: 48, md: 50, lg: 54, "xl": "64" }, // Decrease height on smaller screens
+                        mb: { xs: 1, sm: 2, md: 3 }, // Adjust margin for better spacing
+                      }} />
 
-                    {/* Service Description */}
-                    <Typography
-                      variant="body2"
-                      color="textSecondary"
-                      sx={{
-                        fontSize: { xs: "10px", sm: "12px", md: "15px" } // Smaller font on mobile
-                      }}
-                    >
-                      {service.description}
-                    </Typography>
-                  </CardContent>
+                      {/* Service Title */}
+                      <Typography
+                        variant="h6"
+                        fontWeight="500"
+                        sx={{
+                          fontSize: { xs: "14px", sm: "18px", md: "21px", lg: "22px", "xl": "24px" }, // Responsive font size
+                          marginBottom: "8px"
+                        }}
+                      >
+                        {service.title}
+                      </Typography>
 
-                </Card>
-              </Box>
-            ))}
+                      {/* Service Description */}
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        sx={{
+                          fontSize: { xs: "10px", sm: "14px", md: "16px", lg: "18px", "xl": "20px" }, // Smaller font on mobile
+                        }}
+                      >
+                        {service.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Box>
+              );
+            })}
           </Box>
         </div>
-      </section>
+      </section>;
 
-      <section className='area-of-expertise'>
-        <div className='areaofexp'>
+      <section className="area-of-expertise">
+        <div className="areaofexp">
           <h2>Area Of Expertise</h2>
-
           <Box
             sx={{
               px: { xs: 7, sm: 9, md: 12, lg: 15 },
               py: 3,
               maxWidth: { xs: "100%", sm: "95%", md: "95%", lg: "90%" },
               mx: "auto",
+              padding: "0px"
             }}
           >
             <Swiper
-              spaceBetween={32} // Reduce space for compact layout
-              slidesPerView={3} // Default for larger screens
+              spaceBetween={32}
+              slidesPerView={3}
               breakpoints={{
-                320: { slidesPerView: 1 }, // 1 item per row on small screens
-                600: { slidesPerView: 1.5 }, // Slightly increase size on tablets
-                768: { slidesPerView: 2 }, // 2 items per row on medium screens
-                1024: { slidesPerView: 2.5 }, // 2.5 items per row on large screens
-                1280: { slidesPerView: 3 }, // 3 items per row on extra-large screens
+                320: { slidesPerView: 1, centeredSlides: true, pagination: { clickable: true } },
+                600: { slidesPerView: 1.5, centeredSlides: true, pagination: { clickable: true } },
+                768: { slidesPerView: 2, centeredSlides: true, pagination: { clickable: true }  },
+                1024: { slidesPerView: 2.5, centeredSlides: true },
+                1280: { slidesPerView: 3, centeredSlides: true },
               }}
+              pagination={window.innerWidth <= 1024 ? { clickable: true } : false}
+              modules={[Pagination]}
             >
               {areaOfExp.map((service, index) => (
                 <SwiperSlide key={index}>
@@ -314,18 +371,18 @@ const Home = () => {
                     sx={{
                       bgcolor: "#F4F4F4",
                       borderRadius: 3,
-                      p: { xs: 2, sm: 3, md: 4 }, // Reduce padding on smaller screens
-                      minHeight: { xs: "220px", sm: "240px", md: "200px" }, // Adjust height dynamically
+                      p: { xs: 2, sm: 3, md: 4 },
+                      minHeight: { xs: "220px", sm: "240px", md: "200px" },
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      textAlign: "center",
+                      textAlign: "center",               
                     }}
                   >
                     <Typography
                       variant="body1"
                       fontWeight="bold"
-                      sx={{ fontSize: { xs: "14px", sm: "16px", md: "18px" } }} // Responsive font size
+                      sx={{ fontSize: { xs: "14px", sm: "16px", md: "18px" } }}
                     >
                       {service.title}
                     </Typography>
@@ -336,35 +393,32 @@ const Home = () => {
           </Box>
 
         </div>
-      </section>
+      </section>;
 
       <section className='caseStudies'>
 
       </section>
 
-      <section className='testimonials'>
-        <div className='what-our-clients-say'>
+      <section className="testimonials">
+        <div className="what-our-clients-say">
           <h2>What Our Clients Say</h2>
 
-          <div className='boarder'>
-
-
+          <div className="boarder">
             <Box
               sx={{
                 width: "100%",
-                maxWidth: "1400px", // Prevents excessive stretching
-                mx: "auto", // Centers the container
+                maxWidth: "1900px",
+                mx: "auto",
                 overflow: "hidden",
                 display: "flex",
                 justifyContent: "center",
-                height: "500px", // Increase this value as needed
+                height: "500px",
               }}
             >
               <Swiper
                 style={{
                   width: "100%",
-                  height: "400px", // Increase this value as needed
-                  border: "1px solid blue",
+                  height: "400px",
                   display: "flex",
                   justifyContent: "center",
                   alignItems: "center",
@@ -373,35 +427,35 @@ const Home = () => {
                 grabCursor={true}
                 centeredSlides={true}
                 slidesPerView={"auto"}
-                spaceBetween={window.innerWidth < 768 ? 10 : 20}
+                spaceBetween={window.innerWidth < 768 ? 5 : 10}
                 coverflowEffect={{
                   rotate: 0,
-                  stretch: 10,
-                  depth: 150,
+                  stretch: 5,
+                  depth: 120,
                   modifier: 1,
-                  scale: 0.85,
+                  scale: 0.9,
                   slideShadows: false,
                 }}
-                modules={[EffectCoverflow]}
+                pagination={window.innerWidth <= 1024 ? { clickable: true } : false}
+                modules={[EffectCoverflow, Pagination]}
               >
                 {testimonials.map((testimonial, index) => (
                   <SwiperSlide
                     key={index}
                     style={{
                       width: "100%",
-                      maxWidth: "500px",
+                      maxWidth: "670px",
                       height: "auto",
-                      margin: "auto",
-                      border: "1px solid green",
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      padding: "10px",
+                      padding: "1px",
                     }}
                   >
                     <Box
                       sx={{
-                        width: "100%",
+                        width: { xs: "92%", sm: "88%", md: "87%", lg: "90%", xl: "670px" },
+                        height: { xs: "240px", sm: "250px", md: "260px", lg: "270px" },
                         bgcolor: "#F4F4F4",
                         display: "flex",
                         flexDirection: "column",
@@ -410,8 +464,8 @@ const Home = () => {
                         borderRadius: 3,
                         boxShadow: 3,
                         textAlign: "left",
-                        border: "1px solid orange",
-                        p: { xs: 2, md: 3 },
+                        p: { xs: 1.5, sm: 2, md: 3 },
+                        mx: { xs: 1, sm: 2, md: 1 },
                       }}
                     >
                       <Box
@@ -420,14 +474,15 @@ const Home = () => {
                           height: "40px",
                           bgcolor: "gray",
                           borderRadius: 1,
-                          mb: 2,
+                          mb: 1.5,
                         }}
                       />
                       <Typography
                         variant="h6"
                         fontWeight="bold"
                         sx={{
-                          fontSize: { xs: "1rem", md: "1.2rem" },
+                          fontSize: { xs: "1rem", sm: "1.1rem", md: "1.2rem" },
+                          mb: 0.5,
                         }}
                       >
                         {testimonial.name}
@@ -436,16 +491,18 @@ const Home = () => {
                         variant="body2"
                         color="gray"
                         sx={{
-                          fontSize: { xs: "0.8rem", md: "1rem" },
+                          fontSize: { xs: "0.8rem", sm: "0.9rem", md: "1rem" },
+                          mb: 0.5,
                         }}
                       >
                         {testimonial.position}
                       </Typography>
                       <Typography
                         variant="body1"
-                        mt={2}
+                        mt={1.5}
                         sx={{
-                          fontSize: { xs: "0.9rem", md: "1.1rem" },
+                          fontSize: { xs: "0.9rem", sm: "1rem", md: "1.1rem" },
+                          lineHeight: { xs: "1.3", sm: "1.5", md: "1.6" },
                         }}
                       >
                         {testimonial.feedback}
@@ -455,10 +512,9 @@ const Home = () => {
                 ))}
               </Swiper>
             </Box>
-
           </div>
         </div>
-      </section>
+      </section>;
 
     </>
   );
