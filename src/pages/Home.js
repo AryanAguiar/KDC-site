@@ -294,13 +294,13 @@ const Home = () => {
                       boxShadow: 0,
                       width: { xs: "250px", sm: "300px", md: "470px", lg: "500px", "xl": "698px" },
                       height: { xs: "178px", sm: "240px", md: "228px", lg: "240px", "xl": "230px" },
-                      p: { xs: 1, sm: 3, md: 3, lg: 5 }
+                      p: { xs: "4px", sm: "12px", md: "12px", lg: "18px", "lx":"20px" }
                     }}
                   >
                     <CardContent
-                      sx={{
-                        p: { xs: 1, sm: 1, md: 1 }, // Smaller padding on small screens
-                      }}
+                      // sx={{
+                      //   // p: { xs: "4px", sm: "11px", md: "12px", lg: "13px", "lx":"15px" }
+                      // }}
                     >
                       <Avatar sx={{
                         bgcolor: "#D3D3D3",
