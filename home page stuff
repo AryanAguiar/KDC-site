@@ -1,85 +1,92 @@
-  <section className="services">
-        <Box
-          component="section"
-          sx={{
-            display: "flex",
-            flexDirection: { xs: "column", sm: "column", md: "row" },
-            alignItems: "center",
-            justifyContent: "space-between",
-            px: { xs: 3, sm: 6, md: 6, lg: 11, xl: "300" },
-            py: { xs: 4, md: 5 },
-            width: "100%", // Ensures it stretches across full width
-          }}
-        >
-          {/* Left Content (Text) */}
-          <Box
+   <section className='web-services'>
+        <div className='languages'>
+          <Typography
+            variant="h2"
             sx={{
-              flex: { xs: 1, sm: 1.2, md: 1.3 }, // More space for text, especially on tablets
-              textAlign: { xs: "center", sm: "center", md: "left" },
-              maxWidth: { xs: "100%", sm: "65%", md: "55%" }, // Adjust width dynamically
-              p: 2,
+              fontSize: { xs: "22px", sm: "26px", md: "32px" }, // Responsive font size
+              fontWeight: "bold",
+              textAlign: "center",
+              mb: 3,
             }}
           >
-            <Typography
-              variant="h5"
-              fontWeight="700"
-              gutterBottom
-              sx={{
-                fontSize: { xs: "20px", sm: "22px", md: "24px", lg: "25px", "xl": "32px" },
-                display: "inline-block",
-                p: 1, // Padding inside the heading border
-              }}
-            >
-              {"Web & CMS Development"}
-            </Typography>
-            <Typography
-              variant="body1"
-              color="textSecondary"
-              mb={3}
-              sx={{
-                fontSize: { xs: "13px", sm: "14px", md: "15px", lg: "17px", "xl": "20px" },
-                display: "inline-block",
-                maxWidth: { xs: "312px", sm: "413px", md: "514px", lg: "605px", "xl": "704px" },
-                p: 1,
-              }}
-            >
-              "Providing tailored Web and CMS development solutions to empower seamless content management and dynamic online experiences
-            </Typography>
-            <Button
-              sx={{
-                backgroundColor: "black",
-                textTransform: "none",
-                px: { xs: 2, sm: 3, md: 4 },
-                py: { xs: 1, sm: 1.25, md: 1.5 },
-                fontSize: { xs: "12px", sm: "14px", md: "16px" },
-              }}
-              variant="contained"
-            >
-              Get a Free Consultation
-            </Button>
+            Our Web & CMS Development Services
+          </Typography>
+
+          <Box
+            sx={{
+              display: "flex",
+              flexWrap: "wrap",
+              rowGap: 3, // Keeps vertical spacing consistent
+              justifyContent: "center",
+              p: { xs: 0.1, sm: 1, md: 1 },
+            }}
+          >
+            {services.map((service, index) => {
+
+              return (
+                <Box
+                  key={index}
+                  sx={{
+                    width: "calc(45% - 46px)", // Slightly increases horizontal spacing
+                    minWidth: "300px",
+                    display: "flex",
+                    justifyContent: "center",
+                    mx: "9px", // Adds more space between cards
+                    mb: { xs: "8px", sm: "10px", md: "16px", lg: "10px" }, // Adds vertical spaci
+                  }}
+                >
+                  <Card
+                    sx={{
+                      bgcolor: "#F4F4F4",
+                      borderRadius: 3,
+                      boxShadow: 0,
+                      width: { xs: "250px", sm: "300px", md: "470px", lg: "500px", "xl": "698px" },
+                      height: { xs: "178px", sm: "240px", md: "228px", lg: "240px", "xl": "230px" },
+                      p: { xs: 1, sm: 3, md: 3, lg: 5 }
+                    }}
+                  >
+                    <CardContent>
+                      <Avatar
+                        src={service.img}
+                        alt={service.title}
+                        sx={{
+                          width: { xs: 40, sm: 48, md: 50, lg: 54, xl: 64 }, // Responsive width
+                          height: { xs: 40, sm: 48, md: 50, lg: 54, xl: 64 }, // Responsive height
+                          mb: { xs: 1, sm: 2, md: 3 }, // Adjust spacing
+                        }}
+                      />
+
+
+                      {/* Service Title */}
+                      <Typography
+                        variant="h6"
+                        fontWeight="500"
+                        sx={{
+                          fontSize: { xs: "14px", sm: "18px", md: "21px", lg: "22px", "xl": "24px" }, // Responsive font size
+                          marginBottom: "8px"
+                        }}
+                      >
+                        {service.title}
+                      </Typography>
+
+                      {/* Service Description */}
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        sx={{
+                          fontSize: { xs: "10px", sm: "14px", md: "16px", lg: "18px", "xl": "20px" }, // Smaller font on mobile
+                        }}
+                      >
+                        {service.description}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Box>
+              );
+            })}
           </Box>
 
-          {/* Right Content (Image) */}
-          <Box
-            sx={{
-              flex: { xs: 1, sm: 0.8, md: 0.9 }, // Less space for image on tablets but keeps it balanced
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              maxWidth: { xs: "100%", sm: "75%", md: "45%" }, // Increase size on tablets
-              p: 2,
-            }}
-          >
-            <img
-              src={heroImg}
-              alt="Hero"
-              style={{
-                width: "100%", // Ensures image fills its given space
-                maxWidth: "599px", // Prevents excessive stretching
-                height: "auto",
-                borderRadius: "8px",
-              }}
-            />
-          </Box>
-        </Box>
+
+
+        </div>
       </section>
