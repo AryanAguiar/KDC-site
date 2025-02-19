@@ -205,7 +205,7 @@ const Home = () => {
                 borderRadius: "8px",
                 backgroundColor: "white",
                 flex: "1 1 180px",
-                maxWidth: { xs: "100px", sm: "200px", md: "208px", lg: "243px", 'xl': "333px" }, // Responsive width
+                maxWidth: { xs: "100px", sm: "200px", md: "208px", lg: "273px", 'xl': "290px" }, // Responsive width
                 minWidth: "150px",
                 height: { xs: "100px", sm: "190px", md: "150px", lg: "170px", 'xl': "227px" }, // Responsive height
                 display: "flex",
@@ -283,7 +283,8 @@ const Home = () => {
                     minWidth: "300px",
                     display: "flex",
                     justifyContent: "center",
-                    mx: "9px", // Adds more space between cards
+                    mx: "9px",
+                    my: "-15px",
                     mb: { xs: "8px", sm: "10px", md: "16px", lg: "10px" }, // Adds vertical spaci
                   }}
                 >
@@ -292,7 +293,7 @@ const Home = () => {
                       bgcolor: "#F4F4F4",
                       borderRadius: 3,
                       boxShadow: 0,
-                      width: { xs: "250px", sm: "300px", md: "470px", lg: "500px", "xl": "698px" },
+                      width: { xs: "250px", sm: "300px", md: "520px", lg: "600px", "xl": "698px" },
                       height: { xs: "178px", sm: "240px", md: "228px", lg: "240px", "xl": "230px" },
                       p: { xs: "4px", sm: "12px", md: "12px", lg: "18px", "lx":"20px" }
                     }}
