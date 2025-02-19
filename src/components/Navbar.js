@@ -32,7 +32,7 @@ function Navbar() {
 
     return (
         <AppBar
-            position="static"
+            position="sticky"
             sx={{
                 backgroundColor: 'white',
                 boxShadow: 'none',
@@ -84,12 +84,9 @@ function Navbar() {
                             ))}
                             {/* Contact Us Button in Mobile Menu */}
                             <MenuItem onClick={handleCloseNavMenu}>
-                                <Button
-                                    variant="contained"
-                                    sx={{ backgroundColor: '#3F3F3F', color: 'white', width: '100%' }}
-                                >
+                                <NavLink to="/contact" style={({ isActive }) => (isActive ? activeStyles : { color: 'gray', textDecoration: 'none' })}>
                                     Contact Us
-                                </Button>
+                                </NavLink>
                             </MenuItem>
                         </Menu>
                     </Box>
