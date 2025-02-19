@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import './Home.css';
 import heroImg from '../images/Home_Banner_Image.png';
 import Button from '@mui/material/Button';
-import { Paper, Typography, Box, Card, CardContent, Avatar } from '@mui/material';
+import { Paper, Typography, Box, Card, CardContent, Avatar, LinearProgress, CardMedia } from '@mui/material';
 import CountUp from 'react-countup';
 import { useInView } from 'react-intersection-observer';
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -11,6 +11,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
+
+import arrowimg from '../images/right-up.png'
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 const Home = () => {
 
   const stats = [
@@ -58,6 +62,34 @@ const Home = () => {
 
 
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
+
+
+  const swiperRef = useRef(null);
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  const cardData = [
+    {
+      id: 1,
+      image: heroImg, // Replace with actual image URL
+      title: "Project Name",
+      description: "Lorem Ipsum Dolor Sit Amet Consectetur. Penatibus Viverra Arcu Aget...Lorem Ipsum Dolor Sit Amet Consectetur. Penatibus Viverra Arcu Aget",
+      tags: ["Web Development", "CMS Development"],
+    },
+    {
+      id: 2,
+      image: "https://via.placeholder.com/400",
+      title: "Another Project",
+      description: "Tellus Dolor Fermentum Adipiscing Commodo Turpis Rhoncus Praesent...",
+      tags: ["App Development", "UI/UX Design"],
+    },
+    {
+      id: 1,
+      image: heroImg, // Replace with actual image URL
+      title: "Project Name",
+      description: "Lorem Ipsum Dolor Sit Amet Consectetur. Penatibus Viverra Arcu Aget...",
+      tags: ["New Development", "CMS Development"],
+    },
+  ];
 
   return (
     <>
@@ -295,13 +327,13 @@ const Home = () => {
                       boxShadow: 0,
                       width: { xs: "250px", sm: "300px", md: "520px", lg: "600px", "xl": "698px" },
                       height: { xs: "178px", sm: "240px", md: "228px", lg: "240px", "xl": "230px" },
-                      p: { xs: "4px", sm: "12px", md: "12px", lg: "18px", "lx":"20px" }
+                      p: { xs: "4px", sm: "12px", md: "12px", lg: "18px", "lx": "20px" }
                     }}
                   >
                     <CardContent
-                      // sx={{
-                      //   // p: { xs: "4px", sm: "11px", md: "12px", lg: "13px", "lx":"15px" }
-                      // }}
+                    // sx={{
+                    //   // p: { xs: "4px", sm: "11px", md: "12px", lg: "13px", "lx":"15px" }
+                    // }}
                     >
                       <Avatar sx={{
                         bgcolor: "#D3D3D3",
@@ -356,12 +388,17 @@ const Home = () => {
             <Swiper
               spaceBetween={32}
               slidesPerView={3}
+              loop={false} // Ensures it does not loop back
               breakpoints={{
-                320: { slidesPerView: 1, centeredSlides: true, pagination: { clickable: true } },
-                600: { slidesPerView: 1.5, centeredSlides: true, pagination: { clickable: true } },
-                768: { slidesPerView: 2, centeredSlides: true, pagination: { clickable: true }  },
-                1024: { slidesPerView: 2.5, centeredSlides: true },
-                1280: { slidesPerView: 3, centeredSlides: true },
+                320: { slidesPerView: 1, pagination: { clickable: true } },
+                600: { slidesPerView: 1.5, pagination: { clickable: true } },
+                768: { slidesPerView: 2, pagination: { clickable: true } },
+                1024: { slidesPerView: 2.5 },
+                1280: { slidesPerView: 3 },
+              }}
+              onReachEnd={(swiper) => {
+                swiper.params.centeredSlides = false;
+                swiper.update();
               }}
               pagination={window.innerWidth <= 1024 ? { clickable: true } : false}
               modules={[Pagination]}
@@ -377,7 +414,7 @@ const Home = () => {
                       display: "flex",
                       justifyContent: "center",
                       alignItems: "center",
-                      textAlign: "center",               
+                      textAlign: "center",
                     }}
                   >
                     <Typography
@@ -391,13 +428,275 @@ const Home = () => {
                 </SwiperSlide>
               ))}
             </Swiper>
+
           </Box>
 
         </div>
       </section>;
 
-      <section className='caseStudies'>
+      <section>
+        <div className="case-studies">
+          <p className="studies-p">Case Studies</p>
+          <h2 className="studies-h2">Explore Success Stories</h2>
+          <Box className="navigation-buttons"
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              position: "relative",
+              width: "90vw",
+              maxWidth: {
+                xs: "100%",
+                sm: "600px",
+                md: "850px",
+                lg: "1200px",
+                xl: "1250px",
+              },
+              margin: "auto",
+            }}
+          >
+            {/* Navigation Buttons */}
+            <Button className='btn-prev'
+              onClick={() => swiperRef.current?.slidePrev()}
+              sx={{
+                position: "absolute",
+                display: "flex",
+                alignItems: "center",
+                "@media (min-width: 320px)": {
+                  marginTop: "15px",
+                  marginBottom: "-15px",
+                },
+                "@media (min-width: 375px)": {
+                  marginTop: "15px",
+                  marginBottom: "-15px",
+                  marginRight: "25px"
+                },
+                "@media (min-width: 425px)": {
+                  marginTop: "15px",
+                  marginBottom: "5px",
+                  marginRight: "50px"
+                },
+                "@media (min-width: 768px)": {
+                  marginTop: "20px",
+                  marginBottom: "-10px",
+                  marginRight: "10px"
+                },
+                justifyContent: "center",
+                bottom: 40, // Always at the bottom
+                right: { xs: 155, sm: 110 }, // Moves inward on small screens
+                zIndex: 10,
+                minWidth: 40,
+                height: { xs: 30, sm: 30, md: 40 },
+                bgcolor: "rgba(0,0,0,0.6)",
+                color: "white",
+                borderRadius: "50%",
+                "&:hover": { bgcolor: "black" },
+              }}
 
+            >
+              <ArrowBackIosIcon fontSize="small" sx={{ marginLeft: "4px", marginRight: "-3px" }} />
+            </Button>
+
+            <Button
+              className='btn-next'
+              onClick={() => swiperRef.current?.slideNext()}
+              sx={{
+                position: "absolute",
+                bottom: 40, // Always at the bottom
+                right: { xs: 90, sm: 50 }, // Moves inward on small screens
+                zIndex: 10,
+                minWidth: 40,
+                height: { xs: 30, sm: 30, md: 40 },
+                "@media (min-width: 320px)": {
+                  marginTop: "15px",
+                  marginBottom: "-15px",
+                },
+                "@media (min-width: 375px)": {
+                  marginTop: "15px",
+                  marginBottom: "-15px",
+                  marginRight: "25px"
+                },
+                "@media (min-width: 425px)": {
+                  marginTop: "15px",
+                  marginBottom: "5px",
+                  marginRight: "50px"
+                },
+                "@media (min-width: 768px)": {
+                  marginTop: "20px",
+                  marginBottom: "-10px",
+                  marginRight: "10px"
+                },
+                bgcolor: "rgba(0,0,0,0.6)",
+                color: "white",
+                borderRadius: "50%",
+                "&:hover": { bgcolor: "black" },
+              }}
+            >
+              <ArrowForwardIosIcon fontSize="small" />
+            </Button>
+
+            {/* Swiper Container */}
+            <Swiper
+              modules={[Navigation]}
+              spaceBetween={30}
+              slidesPerView={1}
+              navigation={true}
+              onSwiper={(swiper) => (swiperRef.current = swiper)}
+              onSlideChange={(swiper) => setActiveIndex(swiper.realIndex)}
+              style={{ width: "100%" }}
+            >
+              {cardData.map((card) => (
+                <SwiperSlide key={card.id}>
+                  <Card
+                    sx={{
+                      display: "flex",
+                      flexDirection: { xs: "column", md: "row" },
+                      height: "350px",
+                      "@media (max-width: 1024px)": {
+                        height: "420px",
+                      },
+                      "@media (max-width: 768px)": {
+                        height: "580px",
+                      },
+                      "@media (max-width: 425px)": {
+                        height: "540px",
+                      },
+                      "@media (max-width: 375px)": {
+                        height: "520px",
+                      },
+                      "@media (max-width: 320px)": {
+                        height: "500px",
+                      },
+                      p: 2,
+                      maxWidth: "100%",
+                      boxShadow: "none",
+                      borderRadius: 3,
+                      bgcolor: "#e5e5e5",
+                      position: "relative",
+                    }}
+                  >
+                    {/* Progress Bar (Full Width on Small Screens) */}
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        top: 0,
+                        right: 0,
+                        width: { xs: "100%", md: "50%" },
+                        zIndex: 10,
+                      }}
+                    >
+                      <LinearProgress
+                        variant="determinate"
+                        value={((activeIndex + 1) / cardData.length) * 100}
+                        sx={{
+                          bgcolor: "lightgray",
+                          "& .MuiLinearProgress-bar": { bgcolor: "red" },
+                        }}
+                      />
+                    </Box>
+
+                    {/* Image Section */}
+                    <CardMedia
+                      component="img"
+                      image={card.image}
+                      alt={card.title}
+                      sx={{
+                        width: { xs: "100%", md: "50%" },
+                        height: { xs: "auto", md: "100%" },
+                        borderRadius: 2,
+                        backgroundColor: "#e5e5e5",
+                      }}
+                    />
+
+                    {/* Text Content */}
+                    <CardContent
+                      sx={{
+                        flex: 1,
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        textAlign: { xs: "center", md: "left" },
+                        paddingBottom: { xs: 3, md: 0 }, // Adds space at the bottom on smaller screens
+                      }}
+                    >
+                      <Typography
+                        variant="h5"
+                        fontWeight="bold"
+                        sx={{
+                          fontSize: { xs: "1.2rem", md: "1.5rem" },
+                          position: "relative",
+                          top: { xs: "0px", md: "-50px" },
+                          left: { xs: "0px", md: "20px" }
+                        }}
+                      >
+                        {card.title}
+                      </Typography>
+                      <Typography
+                        variant="body1"
+                        color="text.secondary"
+                        sx={{
+                          mt: 1,
+                          fontSize: { xs: "0.9rem", md: "1rem" },
+                          position: "relative",
+                          left: { xs: "0px", md: "20px" },
+                          top: { xs: "0px", md: "-50px" }, // Adjusted for responsiveness
+                        }}
+                      >
+                        {card.description}
+                      </Typography>
+                      <Box sx={{ display: "flex", gap: 2, mt: 1, justifyContent: { xs: "center", md: "flex-start" } }}>
+                        {card.tags.map((tag, index) => (
+                          <Typography
+                            key={index}
+                            variant="body2"
+                            color="grey"
+                            sx={{
+                              position: "relative",
+                              top: { xs: "0px", md: "-50px" },
+                              left: { xs: "0px", md: "20px" }
+                            }}
+                          >
+                            • {tag}
+                          </Typography>
+                        ))}
+                      </Box>
+                      <Button
+                        variant="contained"
+                        sx={{
+                          mt: 2,
+                          alignSelf: { xs: "center", md: "flex-start" },
+                          bgcolor: "#C8102E",
+                          width: { xs: "165px", md: "220px" },
+                          position: "relative",
+                          height: { xs: "20px", md: "45px" },
+
+                          "@media (max-width: 768px)": {
+                            height: "30px",
+                          },
+                          "@media (max-width: 425px)": {
+                            height: "30px",
+                          },
+                          "@media (max-width: 375px)": {
+                            height: "20px",
+                          },
+                          "@media (max-width: 320px)": {
+                            height: "30px",
+                          },
+                          top: { xs: "0px", md: "-50px" },
+                          fontSize: { xs: "10px", md: "15px" },
+                          left: { xs: "0px", md: "15px" } // Fixes overlap on small screens
+                        }}
+                      >
+                        Get Started Now
+                        <img src={arrowimg} alt="Start" style={{ width: 20, height: 20, marginLeft: 10 }} />
+                      </Button>
+                    </CardContent>
+                  </Card>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </Box>
+        </div>
       </section>
 
       <section className="testimonials">
