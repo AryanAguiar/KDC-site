@@ -15,7 +15,6 @@ const ScrollToTop = () => {
   return (
     <Zoom in={trigger}>
       <Fab
-        
         size="medium"
         onClick={handleClick}
         sx={{
@@ -24,7 +23,10 @@ const ScrollToTop = () => {
           right: 16,   
           zIndex: 1000, 
           backgroundColor: "#C8102E",
-          color: "white"
+          color: "white",
+          "&:hover": { backgroundColor: "#b30000" }, // Darker red on hover
+          "&:active": { backgroundColor: "#C8102E" }, // Prevent color change on click
+          "&:focus": { backgroundColor: "#C8102E" }, // Prevent color change after click
         }}
       >
         <KeyboardArrowUpIcon />
