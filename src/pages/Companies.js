@@ -12,6 +12,7 @@ import locationimg from '../images/Location.png'
 import emailimg from '../images/Email.png'
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+
 const Companies = () => {
 
   const validationSchema = Yup.object({
@@ -68,7 +69,7 @@ const Companies = () => {
 
   return (
     <>
-      <Box sx={{ px: { xs: 5, s: 9, md: 9, lg: 14, xl: 19 }, py: 3 }}>
+      <Box sx={{ px: { xs: 5, s: 9, md: 9, lg: 14, xl: 19 }, padding: "10px 0 0 0"}}>
         {/* Breadcrumb Navigation */}
         <Breadcrumbs separator="›" aria-label="breadcrumb">
           <Link underline="hover" color="inherit" component={RouterLink} to="/">
@@ -76,9 +77,9 @@ const Companies = () => {
           </Link>
 
           {pathParts.map((part, index) => {
-            const routeTo = `/${pathParts.slice(0, index + 1).join("/")}`; // Construct path
-            const [base, hash] = part.split("#"); // Split "company#about-us" into "company" and "about-us"
-            const sectionLabel = sectionNames[hash] || sectionNames[base] || base.replace("-", " "); // Get readable name
+            const routeTo = `/${pathParts.slice(0, index + 1).join("/")}`;  
+            const [base, hash] = part.split("#");  
+            const sectionLabel = sectionNames[hash] || sectionNames[base] || base.replace("-", " ") .replace(/\b\w/g, (char) => char.toUpperCase()); // Get readable name
 
             const isLast = index === pathParts.length - 1;
 
@@ -104,18 +105,21 @@ const Companies = () => {
             alignItems: "center",
             justifyContent: "space-between",
             px: { xs: 3, s: 3, sm: 6, md: 5, lg: 10, xl: 15 },
-            py: { xs: 4, md: 8 },
+            py: { xs: 1, md: 0 },
+            overflow: "hidden",
             width: "100%", // Ensures full width
           }}
         >
           {/* Left Content (Text) */}
           <Box
+            className="wow animate__animated animate__fadeInLeft"
+            data-wow-duration="1.5s"
             sx={{
               flex: { xs: "1", md: "1.2" },
               textAlign: { xs: "center", md: "left" },
-              maxWidth: { xs: "90%", sm: "85%", md: "55%" }, // Adjusted max width for better centering
-              mx: { xs: "auto", md: "0" }, // Centering on small screens, left-aligned on larger
-              p: { xs: 2, md: 4 },
+              maxWidth: { xs: "90%", sm: "85%", md: "55%" },  
+              mx: { xs: "auto", md: "0" },  
+              px: { xs: 2, md: 1.5 },
             }}
           >
             <Typography
@@ -124,6 +128,7 @@ const Companies = () => {
               gutterBottom
               sx={{
                 fontSize: { xs: "22px", sm: "24px", md: "28px", lg: "32px" },
+                margin: {xs:"auto", sm:"auto", md:"0px 0px 10px 0", lg:"0px 0px 10px 0", xl:"0px 0px 20px 0"}
               }}
             >
               About Us
@@ -133,8 +138,9 @@ const Companies = () => {
               color="textSecondary"
               sx={{
                 fontSize: { xs: "14px", sm: "15px", md: "16px", lg: "18px" },
-                maxWidth: "100%", // Ensures it fills the parent container
+                maxWidth: "100%", 
                 lineHeight: 1.6,
+                margin: {xs:"auto", sm:"auto", md:"0px 0px 40px 0", lg: "0px 0px 50px 0", xl: "0px 0px 130px 0" }
               }}
             >
               KDigitalCurry is a leading mobile and web app development company in Mumbai with over 10+ years of experience. We create human-centric, scalable solutions, delivering full-stack services across various domains.
@@ -154,6 +160,8 @@ const Companies = () => {
             }}
           >
             <img
+              className="wow animate__animated animate__fadeInRight"
+              data-wow-duration="1.5s"
               src={heroImg}
               alt="Hero"
               style={{
@@ -392,6 +400,8 @@ const Companies = () => {
               ].map((value, index) => (
                 <Box key={index} sx={{ mb: { xs: 3, sm: 3, md: 3, lg: 4, xl: 6 } }}>
                   <Typography
+                    className="wow fadeInUp"
+                    data-wow-delay={`${index * 0.3}s`}
                     variant="body1"
                     fontWeight="600"
                     sx={{
