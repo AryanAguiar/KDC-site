@@ -16,7 +16,7 @@ const pages = ['Company', 'Services', 'Industries', 'Portfolio'];
 
 const subLinks = {
     Services: ["Service1", "Service2", "Service3"],
-    Company: [{ name: "About Us", path: "/company#about-us" }, "Service1", "About3"]
+    Company: [{ name: "About Us", path: "/company#about-us" }, { name: "Blogs", path: "/blogs" }, "About3"]
 };
 
 const activeStyles = {
@@ -207,7 +207,7 @@ function Navbar() {
                             <Button
                                 variant="contained"
                                 sx={{
-                                    backgroundColor: '#3F3F3F',
+                                    backgroundColor: '#C8102E',
                                     color: 'white',
                                     borderRadius: '8px',
                                     px: { xs: 2, md: 3, xl: 4, '2xl': 5 },
