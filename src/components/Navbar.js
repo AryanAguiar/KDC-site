@@ -10,6 +10,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import imgLogo from '../images/KDC_logo.png';
+import { motion, useAnimation } from 'framer-motion';
 import './Navbar.css'
 
 const pages = ['Company', 'Services', 'Industries', 'Portfolio'];
@@ -22,7 +23,7 @@ const subLinks = {
 const activeStyles = {
     fontWeight: '600',
     color: '#161616',
-    position: 'relative', // Needed for absolute positioning of the underline
+    position: 'relative',  
 };
 
 
@@ -30,6 +31,7 @@ function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElSubMenu, setAnchorElSubMenu] = React.useState(null);
     const [activeSubMenu, setActiveSubMenu] = React.useState(null);
+    const controls = useAnimation()
 
     const location = useLocation();
 
@@ -51,7 +53,13 @@ function Navbar() {
 
         if (element) {
             element.scrollIntoView({ behavior: "smooth" });
-            window.history.pushState(null, "", subLink.path); 
+            window.history.pushState(null, "", subLink.path);
+        }
+    };
+
+    const handleLogoClick = () => {
+        if (location.pathname === "/") {
+            window.scrollTo({ top: 0, behavior: "smooth" });  
         }
     };
 
@@ -73,7 +81,6 @@ function Navbar() {
         }
     };
 
-
     const handleMouseLeave = () => {
         setAnchorElSubMenu(null);
         setActiveSubMenu(null);
@@ -81,6 +88,10 @@ function Navbar() {
 
     return (
         <AppBar
+            component={motion.div}
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: "easeOut" }}
             position="sticky"
             sx={{
                 backgroundColor: 'white',
@@ -99,8 +110,8 @@ function Navbar() {
                 }}
             >
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-                        <img src={imgLogo} alt="Logo" style={{ height: '30px', marginRight: '12px' }} />
+                    <Link to="/" onClick={handleLogoClick} style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+                        <img src={imgLogo} alt="Logo" style={{ height: "30px", marginRight: "12px" }} />
                     </Link>
 
                     {/* Mobile navigation */}
@@ -159,11 +170,11 @@ function Navbar() {
                                             top: '100%',
                                             left: 0,
                                             width: '100%',
-                                            height: '25px', 
+                                            height: '25px',
                                             backgroundColor: 'transparent',
                                             zIndex: 5,
                                         }}
-                                        onMouseEnter={() => handleMouseEnter(null, page)} 
+                                        onMouseEnter={() => handleMouseEnter(null, page)}
                                     />
                                 )}
 
