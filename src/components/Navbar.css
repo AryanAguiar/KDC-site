@@ -1,0 +1,22 @@
+.nav-link {
+    color: gray;
+    text-decoration: none;
+    position: relative;
+    padding-bottom: 5px; 
+}
+
+.nav-link.active {
+    font-weight: 600;
+    color: #161616;
+}
+
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: -4px; 
+    left: 50%;  
+    width: 120%;  
+    height: 2px;
+    background-color: #161616;
+    transform: translateX(-50%); 
+}
