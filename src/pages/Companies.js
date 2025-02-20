@@ -12,6 +12,8 @@ import locationimg from '../images/Location.png'
 import emailimg from '../images/Email.png'
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import { motion } from "framer-motion";
+
 
 const Companies = () => {
 
@@ -46,6 +48,28 @@ const Companies = () => {
 
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.3 });
 
+  const { ref: missionRef, inView: missionInView } = useInView({ threshold: 0.05, triggerOnce: true });
+  const { ref: visionRef, inView: visionInView } = useInView({ threshold: 0.05, triggerOnce: true });
+  const { ref: textRef, inView: textInView } = useInView({ threshold: 0.05, triggerOnce: true });
+  const { ref: visionTextRef, inView: visionTextInView } = useInView({ threshold: 0.05, triggerOnce: true });
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 20 }, // Start position
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5 }
+    },
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.3 } // Stagger effect (0.3s delay between items)
+    }
+  };
+
   const projects = [
     {
       title: "Project Name",
@@ -69,7 +93,7 @@ const Companies = () => {
 
   return (
     <>
-      <Box sx={{ px: { xs: 5, s: 9, md: 9, lg: 14, xl: 19 }, padding: "10px 0 0 0"}}>
+      <Box sx={{ px: { xs: 5, s: 9, md: 9, lg: 14, xl: 19 }, padding: "10px 0 0 0" }}>
         {/* Breadcrumb Navigation */}
         <Breadcrumbs separator="›" aria-label="breadcrumb">
           <Link underline="hover" color="inherit" component={RouterLink} to="/">
@@ -77,9 +101,9 @@ const Companies = () => {
           </Link>
 
           {pathParts.map((part, index) => {
-            const routeTo = `/${pathParts.slice(0, index + 1).join("/")}`;  
-            const [base, hash] = part.split("#");  
-            const sectionLabel = sectionNames[hash] || sectionNames[base] || base.replace("-", " ") .replace(/\b\w/g, (char) => char.toUpperCase()); // Get readable name
+            const routeTo = `/${pathParts.slice(0, index + 1).join("/")}`;
+            const [base, hash] = part.split("#");
+            const sectionLabel = sectionNames[hash] || sectionNames[base] || base.replace("-", " ").replace(/\b\w/g, (char) => char.toUpperCase()); // Get readable name
 
             const isLast = index === pathParts.length - 1;
 
@@ -117,8 +141,8 @@ const Companies = () => {
             sx={{
               flex: { xs: "1", md: "1.2" },
               textAlign: { xs: "center", md: "left" },
-              maxWidth: { xs: "90%", sm: "85%", md: "55%" },  
-              mx: { xs: "auto", md: "0" },  
+              maxWidth: { xs: "90%", sm: "85%", md: "55%" },
+              mx: { xs: "auto", md: "0" },
               px: { xs: 2, md: 1.5 },
             }}
           >
@@ -128,7 +152,7 @@ const Companies = () => {
               gutterBottom
               sx={{
                 fontSize: { xs: "22px", sm: "24px", md: "28px", lg: "32px" },
-                margin: {xs:"auto", sm:"auto", md:"0px 0px 10px 0", lg:"0px 0px 10px 0", xl:"0px 0px 20px 0"}
+                margin: { xs: "auto", sm: "auto", md: "0px 0px 10px 0", lg: "0px 0px 10px 0", xl: "0px 0px 20px 0" }
               }}
             >
               About Us
@@ -138,9 +162,9 @@ const Companies = () => {
               color="textSecondary"
               sx={{
                 fontSize: { xs: "14px", sm: "15px", md: "16px", lg: "18px" },
-                maxWidth: "100%", 
+                maxWidth: "100%",
                 lineHeight: 1.6,
-                margin: {xs:"auto", sm:"auto", md:"0px 0px 40px 0", lg: "0px 0px 50px 0", xl: "0px 0px 130px 0" }
+                margin: { xs: "auto", sm: "auto", md: "0px 0px 40px 0", lg: "0px 0px 50px 0", xl: "0px 0px 130px 0" }
               }}
             >
               KDigitalCurry is a leading mobile and web app development company in Mumbai with over 10+ years of experience. We create human-centric, scalable solutions, delivering full-stack services across various domains.
@@ -248,7 +272,7 @@ const Companies = () => {
 
 
       <section className="mission-vision" style={{ backgroundColor: "#F2F2F2" }}>
-        <Box sx={{ px: { xs: 2, md: 13 }, py: { xs: 6, md: 12 } }}>
+        <Box sx={{ px: { xs: 2, md: 13 }, py: { xs: 6, md: 12 }, overflow: "hidden" }}>
           {/* Mission Section */}
           <Box
             sx={{
@@ -261,25 +285,47 @@ const Companies = () => {
           >
             {/* Image */}
             <Box
+              ref={missionRef}
               component="img"
-              src={missionImg} // Change to your image path
+              src={missionImg}
               alt="Mission"
+              className={`animate__animated ${missionInView ? "animate__fadeInLeft" : ""}`}
               sx={{
                 width: { xs: "70%", sm: "50%", md: "45%", lg: "50%", xl: "603px" },
-                height: "auto", // Maintain aspect ratio
-                maxWidth: "603px", // Prevent it from getting too large
+                height: "auto",
+                maxWidth: "603px",
                 borderRadius: "12px",
+                opacity: missionInView ? 1 : 0,
+                transform: missionInView ? "translateX(0)" : "translateX(-30px)",
+                transition: "all 0.5s ease-out",
               }}
             />
 
             {/* Text Content */}
-            <Box sx={{ maxWidth: { xs: "100%", md: "50%" }, textAlign: { xs: "center", md: "left" }, padding: "20px" }}>
-              <Typography variant="h5" fontWeight="700" gutterBottom
+            <Box
+              ref={textRef}
+              className={`animate__animated  ${textInView ? "animate__fadeInRight" : ""}`}
+              sx={{
+                maxWidth: { xs: "100%", md: "50%" },
+                textAlign: { xs: "center", md: "left" },
+                padding: "20px",
+                opacity: textInView ? 1 : 0,
+                transform: textInView ? "translateX(0)" : "translateX(30px)",
+                transition: "all 0.5s ease-out",
+              }}
+            >
+              <Typography
+                variant="h5"
+                fontWeight="700"
+                gutterBottom
                 sx={{ fontSize: { xs: "16px", sm: "18px", md: "20px", lg: "25px", xl: "32px" } }}
               >
                 Mission
               </Typography>
-              <Typography variant="body1" color="textSecondary" fontWeight="500"
+              <Typography
+                variant="body1"
+                color="textSecondary"
+                fontWeight="500"
                 sx={{ fontSize: { xs: "12px", sm: "13px", md: "16px", lg: "18px", xl: "20px" } }}
               >
                 "To Empower Businesses By Delivering Cutting-Edge, Scalable Web Solutions That Drive Innovation,
@@ -299,25 +345,49 @@ const Companies = () => {
           >
             {/* Image */}
             <Box
+              ref={visionRef}
               component="img"
-              src={visionImg} // Change to your image path
+              src={visionImg}
               alt="Vision"
+              className={`animate__animated ${visionInView ? "animate__fadeInRight" : ""}`}
               sx={{
                 width: { xs: "70%", sm: "50%", md: "45%", lg: "50%", xl: "603px" },
-                height: "auto", // Maintain aspect ratio
-                maxWidth: "603px", // Prevent it from getting too large
+                height: "auto",
+                maxWidth: "603px",
                 borderRadius: "12px",
+                opacity: visionInView ? 1 : 0,
+                transform: visionInView ? "translateX(0)" : "translateX(30px)",
+                transition: "all 0.5s ease-out",
               }}
             />
 
             {/* Text Content */}
-            <Box sx={{ maxWidth: { xs: "100%", md: "50%" }, textAlign: { xs: "center", md: "left" }, padding: "20px" }}>
-              <Typography variant="h5" fontWeight="700" gutterBottom
+            <Box
+              ref={visionTextRef}
+              className={`animate__animated ${visionTextInView ? "animate__fadeInLeft" : ""}`}
+              sx={{
+                maxWidth: { xs: "100%", md: "50%" },
+                textAlign: { xs: "center", md: "left" },
+                padding: "20px",
+                opacity: visionTextInView ? 1 : 0,
+                transform: visionTextInView ? "translateX(0)" : "translateX(-30px)",
+                transition: "all 0.5s ease-out",
+              }}
+            >
+              <Typography
+                variant="h5"
+                fontWeight="700"
+                gutterBottom
                 sx={{ fontSize: { xs: "16px", sm: "18px", md: "20px", lg: "25px", xl: "32px" } }}
               >
                 Vision
               </Typography>
-              <Typography variant="body1" color="textSecondary" fontWeight="500" sx={{ fontSize: { xs: "12px", sm: "13px", md: "16px", lg: "18px", xl: "20px" } }}>
+              <Typography
+                variant="body1"
+                color="textSecondary"
+                fontWeight="500"
+                sx={{ fontSize: { xs: "12px", sm: "13px", md: "16px", lg: "18px", xl: "20px" } }}
+              >
                 "To Be A Leader In Web Development, Transforming Ideas Into Impactful Digital Realities, And Shaping The Future Of Online Experiences With Excellence In Technology, Design, And Innovation."
               </Typography>
             </Box>
@@ -327,8 +397,10 @@ const Companies = () => {
 
       <section className="our-values">
         <Box
+
           sx={{
             display: "flex",
+            overflow: 'hidden',
             flexDirection: "column",
             alignItems: { xs: "center", md: "flex-start" },
             textAlign: { xs: "center", md: "left" },
@@ -353,6 +425,7 @@ const Companies = () => {
 
           {/* Parent Box for Image & Text */}
           <Box
+
             sx={{
               display: "flex",
               flexDirection: { xs: "column", md: "row" }, // Stacks on small screens, row on larger
@@ -386,10 +459,15 @@ const Companies = () => {
 
             {/* Right Text Content */}
             <Box
+              component={motion.div}
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }} // Trigger when 20% is in view
               sx={{
-                flex: { xs: "none", md: "0.6" }, // Text section takes more width
+                flex: { xs: "none", md: "0.6" },
                 textAlign: { xs: "center", md: "left" },
-                maxWidth: { xs: "100%", md: "700px", lg: "800px", xl: "900px" }, // More space for text on xl screens
+                maxWidth: { xs: "100%", md: "700px", lg: "800px", xl: "900px" },
               }}
             >
               {[
@@ -398,14 +476,17 @@ const Companies = () => {
                 { title: "Flexibility", desc: "Adapting To Changing Requirements And Providing Scalable Solutions." },
                 { title: "Professionalism", desc: "Timely Delivery With Expert Handling And A Client-Focused Approach." },
               ].map((value, index) => (
-                <Box key={index} sx={{ mb: { xs: 3, sm: 3, md: 3, lg: 4, xl: 6 } }}>
+                <Box
+                  key={index}
+                  component={motion.div}
+                  variants={textVariants}
+                  sx={{ mb: { xs: 3, sm: 3, md: 3, lg: 4, xl: 6 } }}
+                >
                   <Typography
-                    className="wow fadeInUp"
-                    data-wow-delay={`${index * 0.3}s`}
                     variant="body1"
                     fontWeight="600"
                     sx={{
-                      fontSize: { xs: 14, sm: 16, md: 18, lg: 20, xl: 24 }, // Bigger font on xl
+                      fontSize: { xs: 14, sm: 16, md: 18, lg: 20, xl: 24 },
                     }}
                   >
                     {value.title}
@@ -416,7 +497,7 @@ const Companies = () => {
                     fontWeight="400"
                     sx={{
                       fontSize: { xs: 12, sm: 13, md: 14, lg: 16, xl: 20 },
-                      maxWidth: "95%", // Ensures text does not stretch too much on xl screens
+                      maxWidth: "95%",
                     }}
                   >
                     {value.desc}
@@ -453,17 +534,17 @@ const Companies = () => {
             sx={{
               display: "flex",
               flexWrap: "wrap",
-              justifyContent: { xs: "center", md: "space-between" },
+              justifyContent: "center",
               gap: "20px",
-              maxWidth: 1428
+              rowGap: "30px",
             }}
           >
             {projects.map((project, index) => (
               <Card
                 key={index}
                 sx={{
-                  flex: "1 1 300px", // Flexible sizing
-                  maxWidth: "454px",
+                  flex: { xs: "1 1 100%", sm: "1 1 calc(50% - 20px)", md: "1 1 calc(33.33% - 20px)" },
+                  maxWidth: { xs: "100%", sm: "calc(50% - 20px)", md: "calc(33.33% - 20px)" },
                   minWidth: "260px",
                   maxHeight: "493px",
                   height: "auto",
@@ -475,23 +556,24 @@ const Companies = () => {
                 {/* Image Placeholder */}
                 <CardMedia
                   component="img"
-                  image={project.image} // Ensure this is a valid image URL
+                  image={project.image}
                   alt={project.title}
                   sx={{
                     width: "100%",
-                    height: { xs: "200px", sm: "250px", md: "320px" }, // Responsive height
-                    objectFit: "cover", // Ensures proper scaling without stretching
+                    height: { xs: "200px", sm: "250px", md: "250px", lg: "290px", xl: "320px" },
+                    objectFit: "cover",
                     borderRadius: "12px",
                   }}
                 />
 
                 {/* Project Info */}
-                <CardContent sx={{
-                  padding: "0",
-                }}>
-                  <Typography variant="h6" fontWeight="bold" gutterBottom sx={{
-                    textAlign: "left",
-                  }}>
+                <CardContent sx={{ padding: "0" }}>
+                  <Typography
+                    variant="h6"
+                    fontWeight="bold"
+                    gutterBottom
+                    sx={{ textAlign: "left" }}
+                  >
                     {project.title}
                   </Typography>
                   <Typography
@@ -505,6 +587,7 @@ const Companies = () => {
               </Card>
             ))}
           </Box>
+
         </Box>
       </section>
 
