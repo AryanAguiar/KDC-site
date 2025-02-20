@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -10,8 +10,15 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import imgLogo from '../images/KDC_logo.png';
+import { Popover } from '@mui/material';
 
+ 
 const pages = ['Company', 'Services', 'Industries', 'Portfolio'];
+
+const subLinks = {
+    Services: ["Service1", "Service2", "Service3"],
+    Company: [{ name: "About Us", path: "/company#about-us" }, "Service1", "About3"]
+};
 
 const activeStyles = {
     fontWeight: 'bold',
@@ -21,6 +28,32 @@ const activeStyles = {
 
 function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
+    const [anchorElSubMenu, setAnchorElSubMenu] = React.useState(null);
+    const [activeSubMenu, setActiveSubMenu] = React.useState(null);
+
+    const location = useLocation(); 
+
+    React.useEffect(() => {
+        if (location.hash) {
+            const element = document.getElementById(location.hash.substring(1));
+            if (element) {
+                element.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+    }, [location]);
+
+    const handleSubLinkClick = (event, subLink) => {
+        event.preventDefault();
+        if (typeof subLink === "string") return;
+
+        const targetId = subLink.path.split("#")[1]; 
+        const element = document.getElementById(targetId);
+
+        if (element) {
+            element.scrollIntoView({ behavior: "smooth" });
+            window.history.pushState(null, "", subLink.path); // Update URL without refreshing
+        }
+    };
 
     const handleOpenNavMenu = (event) => {
         setAnchorElNav(event.currentTarget);
@@ -28,6 +61,18 @@ function Navbar() {
 
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
+    };
+
+    const handleMouseEnter = (event, page) => {
+        if (subLinks[page]) {
+            setAnchorElSubMenu(event.currentTarget);
+            setActiveSubMenu(page);
+        }
+    };
+
+    const handleMouseLeave = () => {
+        setAnchorElSubMenu(null);
+        setActiveSubMenu(null);
     };
 
     return (
@@ -41,7 +86,6 @@ function Navbar() {
                 alignItems: 'center',
             }}
         >
-            {/* Extended width for 2450px screens */}
             <Container
                 maxWidth={false}
                 sx={{
@@ -51,16 +95,10 @@ function Navbar() {
                 }}
             >
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-                    {/* Logo */}
                     <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
-                        <img
-                            src={imgLogo}
-                            alt="Logo"
-                            style={{ height: '30px', marginRight: '12px' }}
-                        />
+                        <img src={imgLogo} alt="Logo" style={{ height: '30px', marginRight: '12px' }} />
                     </Link>
 
-                    {/* Mobile Menu Button */}
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton size="large" onClick={handleOpenNavMenu} color="inherit">
                             <MenuIcon sx={{ color: 'black' }} />
@@ -82,7 +120,6 @@ function Navbar() {
                                     </NavLink>
                                 </MenuItem>
                             ))}
-                            {/* Contact Us Button in Mobile Menu */}
                             <MenuItem onClick={handleCloseNavMenu}>
                                 <NavLink to="/contact" style={({ isActive }) => (isActive ? activeStyles : { color: 'gray', textDecoration: 'none' })}>
                                     Contact Us
@@ -91,20 +128,54 @@ function Navbar() {
                         </Menu>
                     </Box>
 
-                    {/* Desktop Nav Links */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: '40px', xl: '80px', '2xl': '100px' }, alignItems: 'center', ml: { xs: 5, md: 10, xl: 20, '2xl': 40 } }}>
                         {pages.map((page) => (
-                            <NavLink
+                            <Box
                                 key={page}
-                                to={`/${page.toLowerCase()}`}
-                                style={({ isActive }) => (isActive ? activeStyles : { color: 'gray', textDecoration: 'none', fontSize: { md: '16px', xl: '18px', '2xl': '22px' } })}
+                                onMouseEnter={(event) => handleMouseEnter(event, page)}
+                                onMouseLeave={handleMouseLeave}
+                                sx={{ position: 'relative' }}
                             >
-                                {page}
-                            </NavLink>
+                                <NavLink
+                                    to={`/${page.toLowerCase()}`}
+                                    style={({ isActive }) => (isActive ? activeStyles : { color: 'gray', textDecoration: 'none' })}
+                                >
+                                    {page}
+                                </NavLink>
+                                {activeSubMenu === page && (
+                                    <Box
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            left: 0,
+                                            backgroundColor: '#f5f5f5',
+                                            padding: '10px',
+                                            borderRadius: '8px',
+                                            boxShadow: 3,
+                                            zIndex: 10,
+                                            minWidth: '200px',
+                                        }}
+                                    >
+                                        <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                                            {subLinks[page].map((subLink, index) => {
+                                                const linkPath = typeof subLink === "string" ? `/${subLink.toLowerCase()}` : subLink.path;
+                                                const linkName = typeof subLink === "string" ? subLink : subLink.name;
+
+                                                return (
+                                                    <li key={index} style={{ padding: '5px 10px' }}>
+                                                        <NavLink to={linkPath} style={{ color: 'gray', textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
+                                                            <span style={{ marginRight: '5px' }}>•</span> {linkName}
+                                                        </NavLink>
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    </Box>
+                                )}
+                            </Box>
                         ))}
                     </Box>
 
-                    {/* Contact Us Button (Desktop) - Normal Size but Expands on Large Screens */}
                     <Box sx={{ display: { xs: 'none', md: 'block' } }}>
                         <Link to='/contact'>
                             <Button
@@ -113,15 +184,14 @@ function Navbar() {
                                     backgroundColor: '#3F3F3F',
                                     color: 'white',
                                     borderRadius: '8px',
-                                    px: { xs: 2, md: 3, xl: 4, '2xl': 5 }, // Normal size but expands on larger screens
-                                    py: { xs: 1, md: 1.2, xl: 1.4, '2xl': 1.8 }, // Slight padding increase for larger screens
-                                    fontSize: { md: '11px', xl: '13px', '2xl': '15px' } // Keeps button normal-sized in most cases
+                                    px: { xs: 2, md: 3, xl: 4, '2xl': 5 },
+                                    py: { xs: 1, md: 1.2, xl: 1.4, '2xl': 1.8 },
+                                    fontSize: { md: '11px', xl: '13px', '2xl': '15px' }
                                 }}
                             >
                                 Contact Us
                             </Button>
                         </Link>
-
                     </Box>
                 </Toolbar>
             </Container>
