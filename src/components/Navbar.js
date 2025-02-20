@@ -10,9 +10,8 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
 import imgLogo from '../images/KDC_logo.png';
-import { Popover } from '@mui/material';
+import './Navbar.css'
 
- 
 const pages = ['Company', 'Services', 'Industries', 'Portfolio'];
 
 const subLinks = {
@@ -21,17 +20,18 @@ const subLinks = {
 };
 
 const activeStyles = {
-    fontWeight: 'bold',
-    textDecoration: 'underline',
+    fontWeight: '600',
     color: '#161616',
+    position: 'relative', // Needed for absolute positioning of the underline
 };
+
 
 function Navbar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElSubMenu, setAnchorElSubMenu] = React.useState(null);
     const [activeSubMenu, setActiveSubMenu] = React.useState(null);
 
-    const location = useLocation(); 
+    const location = useLocation();
 
     React.useEffect(() => {
         if (location.hash) {
@@ -46,12 +46,12 @@ function Navbar() {
         event.preventDefault();
         if (typeof subLink === "string") return;
 
-        const targetId = subLink.path.split("#")[1]; 
+        const targetId = subLink.path.split("#")[1];
         const element = document.getElementById(targetId);
 
         if (element) {
             element.scrollIntoView({ behavior: "smooth" });
-            window.history.pushState(null, "", subLink.path); // Update URL without refreshing
+            window.history.pushState(null, "", subLink.path); 
         }
     };
 
@@ -65,10 +65,14 @@ function Navbar() {
 
     const handleMouseEnter = (event, page) => {
         if (subLinks[page]) {
-            setAnchorElSubMenu(event.currentTarget);
             setActiveSubMenu(page);
+
+            if (event) {
+                setAnchorElSubMenu(event.currentTarget);
+            }
         }
     };
+
 
     const handleMouseLeave = () => {
         setAnchorElSubMenu(null);
@@ -99,6 +103,7 @@ function Navbar() {
                         <img src={imgLogo} alt="Logo" style={{ height: '30px', marginRight: '12px' }} />
                     </Link>
 
+                    {/* Mobile navigation */}
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton size="large" onClick={handleOpenNavMenu} color="inherit">
                             <MenuIcon sx={{ color: 'black' }} />
@@ -128,6 +133,7 @@ function Navbar() {
                         </Menu>
                     </Box>
 
+                    {/* Desktop navigation */}
                     <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: '40px', xl: '80px', '2xl': '100px' }, alignItems: 'center', ml: { xs: 5, md: 10, xl: 20, '2xl': 40 } }}>
                         {pages.map((page) => (
                             <Box
@@ -138,10 +144,29 @@ function Navbar() {
                             >
                                 <NavLink
                                     to={`/${page.toLowerCase()}`}
-                                    style={({ isActive }) => (isActive ? activeStyles : { color: 'gray', textDecoration: 'none' })}
+                                    className={({ isActive }) => (isActive ? 'nav-link active' : 'nav-link')}
                                 >
                                     {page}
                                 </NavLink>
+
+
+
+                                {/* Invisible Hover Bridge to Prevent Disappearance */}
+                                {activeSubMenu === page && (
+                                    <Box
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '100%',
+                                            left: 0,
+                                            width: '100%',
+                                            height: '25px', 
+                                            backgroundColor: 'transparent',
+                                            zIndex: 5,
+                                        }}
+                                        onMouseEnter={() => handleMouseEnter(null, page)} 
+                                    />
+                                )}
+
                                 {activeSubMenu === page && (
                                     <Box
                                         sx={{
@@ -154,6 +179,7 @@ function Navbar() {
                                             boxShadow: 3,
                                             zIndex: 10,
                                             minWidth: '200px',
+                                            marginTop: "20px"
                                         }}
                                     >
                                         <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
