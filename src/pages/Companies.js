@@ -93,7 +93,7 @@ const Companies = () => {
 
   return (
     <>
-      <Box sx={{ px: { xs: 5, s: 9, md: 9, lg: 14, xl: 19 }, padding: "10px 0 0 0" }}>
+      <Box sx={{ px: { xs: 4.5, sm: 8.5, md: 8, lg: 13, xl: 18 }, }}>
         {/* Breadcrumb Navigation */}
         <Breadcrumbs separator="›" aria-label="breadcrumb">
           <Link underline="hover" color="inherit" component={RouterLink} to="/">
@@ -128,7 +128,7 @@ const Companies = () => {
             flexDirection: { xs: "column", md: "row" },
             alignItems: "center",
             justifyContent: "space-between",
-            px: { xs: 3, s: 3, sm: 6, md: 5, lg: 10, xl: 15 },
+            px: { xs: 3, s: 3, sm: 6, md: 4, lg: 9, xl: 14 },
             py: { xs: 1, md: 0 },
             overflow: "hidden",
             width: "100%", // Ensures full width
@@ -179,8 +179,10 @@ const Companies = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-              maxWidth: { xs: "100%", md: "45%" },
-              p: { xs: 2, md: 4 },
+              maxWidth: {
+                maxWidth: { xs: "100vw", md: "600px" }
+              },
+              p: { xs: 2, md: 2 },
             }}
           >
             <img
@@ -190,7 +192,7 @@ const Companies = () => {
               alt="Hero"
               style={{
                 width: "100%",
-                maxWidth: "550px",
+                maxWidth: "650px",
                 height: "auto",
                 borderRadius: "8px",
               }}
@@ -200,7 +202,7 @@ const Companies = () => {
       </section>
 
 
-      <section className="counter" style={{ padding: "20px" }}>
+      <section className="counter" style={{ padding: "20px 46px" }}>
         <Box
           ref={ref}
           sx={{
@@ -208,7 +210,7 @@ const Companies = () => {
             flexWrap: "wrap",
             justifyContent: "center",
             alignItems: "center",
-            gap: { xs: "10px", sm: "15px", md: "19px", lg: "20px", xl: "20px" },
+            gap: { xs: "10px", sm: "15px", md: "89px", lg: "70px", xl: "57px" },
             width: "100%",
             marginTop: "20px",
           }}
@@ -227,7 +229,7 @@ const Companies = () => {
                 minWidth: "100px",
                 height: { md: "180px", lg: "245px", xl: "270px" },
                 maxHeight: "100px",
-                padding: { xs: "10px", sm: "15px", md: "20px" },
+                padding: { xs: "10px", sm: "15px", md: "20px", lg: "17px", xl: "20px" },
                 position: "relative",
               }}
             >
@@ -236,7 +238,7 @@ const Companies = () => {
                 fontWeight="bold"
                 sx={{
                   fontSize: { xs: "20px", sm: "22px", md: "26px", lg: "28px", xl: "40px" },
-                  color: "#333", // Adjust to match image color
+                  color: "#333",
                 }}
               >
                 {inView ? <CountUp start={0} end={stat.value} duration={3} /> : 0}
@@ -257,7 +259,7 @@ const Companies = () => {
                 <Box
                   sx={{
                     position: "absolute",
-                    right: { sm: "-5px", md: "-10px", lg: "-15px" }, // Positioning
+                    right: { sm: "-5px", md: "-50px", lg: "-45px" }, // Positioning
                     height: "50%",
                     width: "1px",
                     backgroundColor: "#ddd", // Light gray divider
@@ -272,15 +274,18 @@ const Companies = () => {
 
 
       <section className="mission-vision" style={{ backgroundColor: "#F2F2F2" }}>
-        <Box sx={{ px: { xs: 2, md: 13 }, py: { xs: 6, md: 12 }, overflow: "hidden" }}>
+        <Box sx={{ px: { xs: 1, md: 1, lg: 6, xl: 11 }, py: { xs: 6, md: 12 }, overflow: "hidden" }}>
           {/* Mission Section */}
           <Box
             sx={{
               display: "flex",
-              flexDirection: { xs: "column", md: "row" },
+              flexDirection: { xs: "column", sm: "row" },
               alignItems: "center",
               justifyContent: "space-between",
+              gap: { xs: 3, sm: 5, md: 8 },
               mb: { xs: 6, md: 12 },
+              px: { xs: 5, sm: 7 },
+              py: { xs: 5, sm: 3 }
             }}
           >
             {/* Image */}
@@ -291,9 +296,10 @@ const Companies = () => {
               alt="Mission"
               className={`animate__animated ${missionInView ? "animate__fadeInLeft" : ""}`}
               sx={{
-                width: { xs: "70%", sm: "50%", md: "45%", lg: "50%", xl: "603px" },
+                flex: 1,
+                width: { xs: "80%", sm: "45%", md: "45%", lg: "50%", xl: "603px" },
+                maxWidth: { xs: "370px", sm: "400px", md: "500px", xl: "603px" },
                 height: "auto",
-                maxWidth: "603px",
                 borderRadius: "12px",
                 opacity: missionInView ? 1 : 0,
                 transform: missionInView ? "translateX(0)" : "translateX(-30px)",
@@ -306,9 +312,10 @@ const Companies = () => {
               ref={textRef}
               className={`animate__animated  ${textInView ? "animate__fadeInRight" : ""}`}
               sx={{
-                maxWidth: { xs: "100%", md: "50%" },
-                textAlign: { xs: "center", md: "left" },
-                padding: "20px",
+                flex: 1,
+                maxWidth: { xs: "100%", sm: "50%" },
+                textAlign: { xs: "left", sm: "left" },
+                padding: { xs: "20px", sm: "0px 20px" },
                 opacity: textInView ? 1 : 0,
                 transform: textInView ? "translateX(0)" : "translateX(30px)",
                 transition: "all 0.5s ease-out",
@@ -318,7 +325,7 @@ const Companies = () => {
                 variant="h5"
                 fontWeight="700"
                 gutterBottom
-                sx={{ fontSize: { xs: "16px", sm: "18px", md: "20px", lg: "25px", xl: "32px" } }}
+                sx={{ fontSize: { xs: "14px", sm: "15px", md: "20px", lg: "25px", xl: "32px" }, textAlign: { xs: 'center', sm: "left" } }}
               >
                 Mission
               </Typography>
@@ -326,7 +333,7 @@ const Companies = () => {
                 variant="body1"
                 color="textSecondary"
                 fontWeight="500"
-                sx={{ fontSize: { xs: "12px", sm: "13px", md: "16px", lg: "18px", xl: "20px" } }}
+                sx={{ fontSize: { xs: "11px", sm: "12px", md: "16px", lg: "18px", xl: "20px" }, textAlign: { xs: 'center', sm: "left" } }}
               >
                 "To Empower Businesses By Delivering Cutting-Edge, Scalable Web Solutions That Drive Innovation,
                 Enhance User Experience, And Enable Seamless Digital Transformation."
@@ -334,13 +341,18 @@ const Companies = () => {
             </Box>
           </Box>
 
+
           {/* Vision Section */}
           <Box
             sx={{
               display: "flex",
-              flexDirection: { xs: "column", md: "row-reverse" },
+              flexDirection: { xs: "column", sm: "row-reverse" },
               alignItems: "center",
               justifyContent: "space-between",
+              gap: { xs: 3, sm: 5, md: 8 },
+              mb: { xs: 6, md: 12 },
+              px: { xs: 5, sm: 7 },
+              py: { xs: 5, sm: 3 }
             }}
           >
             {/* Image */}
@@ -351,9 +363,10 @@ const Companies = () => {
               alt="Vision"
               className={`animate__animated ${visionInView ? "animate__fadeInRight" : ""}`}
               sx={{
-                width: { xs: "70%", sm: "50%", md: "45%", lg: "50%", xl: "603px" },
+                flex: 1,
+                width: { xs: "80%", sm: "45%", md: "45%", lg: "50%", xl: "603px" },
+                maxWidth: { xs: "370px", sm: "400px", md: "500px", xl: "603px" },
                 height: "auto",
-                maxWidth: "603px",
                 borderRadius: "12px",
                 opacity: visionInView ? 1 : 0,
                 transform: visionInView ? "translateX(0)" : "translateX(30px)",
@@ -366,9 +379,10 @@ const Companies = () => {
               ref={visionTextRef}
               className={`animate__animated ${visionTextInView ? "animate__fadeInLeft" : ""}`}
               sx={{
-                maxWidth: { xs: "100%", md: "50%" },
-                textAlign: { xs: "center", md: "left" },
-                padding: "20px",
+                flex: 1,
+                maxWidth: { xs: "100%", sm: "50%" },
+                textAlign: { xs: "left", sm: "left" },
+                padding: { xs: "20px", sm: "0px 20px" },
                 opacity: visionTextInView ? 1 : 0,
                 transform: visionTextInView ? "translateX(0)" : "translateX(-30px)",
                 transition: "all 0.5s ease-out",
@@ -378,7 +392,10 @@ const Companies = () => {
                 variant="h5"
                 fontWeight="700"
                 gutterBottom
-                sx={{ fontSize: { xs: "16px", sm: "18px", md: "20px", lg: "25px", xl: "32px" } }}
+                sx={{
+                  fontSize: { xs: "14px", sm: "15px", md: "20px", lg: "25px", xl: "32px" },
+                  textAlign: { xs: "center", sm: "left" },
+                }}
               >
                 Vision
               </Typography>
@@ -386,28 +403,30 @@ const Companies = () => {
                 variant="body1"
                 color="textSecondary"
                 fontWeight="500"
-                sx={{ fontSize: { xs: "12px", sm: "13px", md: "16px", lg: "18px", xl: "20px" } }}
+                sx={{
+                  fontSize: { xs: "11px", sm: "12px", md: "16px", lg: "18px", xl: "20px" },
+                  textAlign: { xs: "center", sm: "left" },
+                }}
               >
                 "To Be A Leader In Web Development, Transforming Ideas Into Impactful Digital Realities, And Shaping The Future Of Online Experiences With Excellence In Technology, Design, And Innovation."
               </Typography>
             </Box>
           </Box>
+
         </Box>
       </section>
 
       <section className="our-values">
         <Box
-
           sx={{
             display: "flex",
-            overflow: 'hidden',
+            overflow: "hidden",
             flexDirection: "column",
             alignItems: { xs: "center", md: "flex-start" },
             textAlign: { xs: "center", md: "left" },
-            px: { xs: 2, sm: 4, md: 8, lg: 10, xl: 15 }, // Increased padding for xl screens
-            py: { xs: 4, md: 6, xl: 8 },
-            maxWidth: "1400px", // Limits overall width on very large screens
-            mx: "auto", // Centers the section horizontally
+            px: { xs: 2, sm: 8, md: 8.2, lg: 13, xl: 18 },
+            py: { xs: 4, md: 6, lg: 6, xl: 8 },
+            mx: "auto",
           }}
         >
           {/* Typography (Title) */}
@@ -425,20 +444,19 @@ const Companies = () => {
 
           {/* Parent Box for Image & Text */}
           <Box
-
             sx={{
               display: "flex",
-              flexDirection: { xs: "column", md: "row" }, // Stacks on small screens, row on larger
+              flexDirection: { xs: "column", sm: "row" },
               alignItems: "center",
               justifyContent: "space-between",
-              gap: { xs: 3, sm: 4, md: 5, lg: 6, xl: 10 }, // More spacing on larger screens
+              gap: { xs: 3, sm: 4, md: 5, lg: 6, xl: 10 },
               width: "100%",
             }}
           >
             {/* Left Image */}
             <Box
               sx={{
-                flex: { xs: "none", md: "0.4" }, // Image takes up 40% of space on md+ screens
+                flex: { xs: "none", sm: "0.5" },
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
@@ -446,13 +464,13 @@ const Companies = () => {
             >
               <Box
                 component="img"
-                src={ourValues} // Replace with actual image path
+                src={ourValues}
                 alt="Team Collaboration"
                 sx={{
-                  width: { xs: "80%", sm: "450px", md: "500px", lg: "553px", xl: "650px" }, // Responsive width
-                  height: "auto", // Maintain aspect ratio
+                  width: { xs: "70%", sm: "100%" },
+                  height: "auto",
                   borderRadius: "8px",
-                  maxWidth: "100%", // Prevents overflow
+                  maxWidth: "100%",
                 }}
               />
             </Box>
@@ -463,11 +481,11 @@ const Companies = () => {
               variants={containerVariants}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, amount: 0.2 }} // Trigger when 20% is in view
+              viewport={{ once: true, amount: 0.2 }}
               sx={{
-                flex: { xs: "none", md: "0.6" },
-                textAlign: { xs: "center", md: "left" },
-                maxWidth: { xs: "100%", md: "700px", lg: "800px", xl: "900px" },
+                flex: { xs: "none", sm: "0.5" },
+                textAlign: { xs: "center", sm: "left" },
+                maxWidth: { xs: "100%", sm: "100%" },
               }}
             >
               {[
@@ -486,7 +504,7 @@ const Companies = () => {
                     variant="body1"
                     fontWeight="600"
                     sx={{
-                      fontSize: { xs: 14, sm: 16, md: 18, lg: 20, xl: 24 },
+                      fontSize: { xs: 23, sm: 16, md: 18, lg: 20, xl: 24 },
                     }}
                   >
                     {value.title}
@@ -496,8 +514,9 @@ const Companies = () => {
                     color="text.secondary"
                     fontWeight="400"
                     sx={{
-                      fontSize: { xs: 12, sm: 13, md: 14, lg: 16, xl: 20 },
+                      fontSize: { xs: 18, sm: 13, md: 14, lg: 16, xl: 20 },
                       maxWidth: "95%",
+                      px: { xs: 5, sm: 0 }
                     }}
                   >
                     {value.desc}
@@ -508,6 +527,7 @@ const Companies = () => {
           </Box>
         </Box>
 
+
       </section>
 
 
@@ -515,7 +535,7 @@ const Companies = () => {
         paddingTop: "20px"
       }}>
         <Box sx={{
-          px: { xs: 2, sm: 4, md: 8, lg: 10, xl: 16 },
+          px: { xs: 4.5, sm: 8.4, md: 8, lg: 13, xl: 18 },
 
         }}>
           {/* Section Title */}
@@ -543,14 +563,24 @@ const Companies = () => {
               <Card
                 key={index}
                 sx={{
-                  flex: { xs: "1 1 100%", sm: "1 1 calc(50% - 20px)", md: "1 1 calc(33.33% - 20px)" },
-                  maxWidth: { xs: "100%", sm: "calc(50% - 20px)", md: "calc(33.33% - 20px)" },
+                  flex: {
+                    xs: "1 1 100%", // Full width on xs
+                    sm: "1 1 calc(50% - 16px)", // Two cards per row on sm
+                    md: "1 1 calc(33.33% - 16px)", // Three cards per row on md+
+                  },
+                  maxWidth: {
+                    xs: "100%",
+                    sm: "calc(50% - 16px)",
+                    md: "calc(33.33% - 16px)",
+                  },
                   minWidth: "260px",
                   maxHeight: "493px",
                   height: "auto",
                   borderRadius: "12px",
                   boxShadow: "none",
                   textAlign: "center",
+                  display: "flex",
+                  flexDirection: "column",
                 }}
               >
                 {/* Image Placeholder */}
@@ -567,24 +597,39 @@ const Companies = () => {
                 />
 
                 {/* Project Info */}
-                <CardContent sx={{ padding: "0" }}>
+                <CardContent
+                  sx={{
+                    padding: { sm: "0" },
+                    display: "flex",
+                    flexDirection: "column",
+                    flexGrow: 1,
+                    justifyContent: "space-between",
+                  }}
+                >
                   <Typography
                     variant="h6"
                     fontWeight="bold"
                     gutterBottom
-                    sx={{ textAlign: "left" }}
+                    sx={{
+                      textAlign: { xs: "center", sm: "left" },
+                      fontSize: { xs: "18px", sm: "20px" },
+                    }}
                   >
                     {project.title}
                   </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
-                    sx={{ fontSize: "14px", textAlign: "left" }}
+                    sx={{
+                      fontSize: { xs: "14px", sm: "16px" },
+                      textAlign: { xs: "center", sm: "left" },
+                    }}
                   >
                     {project.description}
                   </Typography>
                 </CardContent>
               </Card>
+
             ))}
           </Box>
 
