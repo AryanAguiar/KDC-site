@@ -515,7 +515,7 @@ const Home = () => {
           <h2>Area Of Expertise</h2>
           <Box
             sx={{
-              px: { xs: 7, sm: 9, md: 8, lg: 13, xl:18 },
+              px: { xs: 7, sm: 9, md: 8, lg: 13, xl: 18 },
               py: 3,
               maxWidth: { xs: "100%", sm: "95%", md: "95%", lg: "90%" },
               mx: "auto",
@@ -527,8 +527,8 @@ const Home = () => {
               slidesPerView={3}
               loop={true}
               autoplay={{
-                delay: 2000,  
-                disableOnInteraction: false,  
+                delay: 2000,
+                disableOnInteraction: false,
               }}
               breakpoints={{
                 320: { slidesPerView: 1 },
@@ -594,6 +594,7 @@ const Home = () => {
             {/* Navigation Buttons */}
             <Button
               className="btn-prev"
+              size="medium"
               onClick={() => swiperRef.current?.slidePrev()}
               sx={{
                 position: "absolute",
@@ -601,7 +602,7 @@ const Home = () => {
                 alignItems: "center",
                 "@media (min-width: 320px)": {
                   marginTop: "15px",
-                  marginBottom: "-15px",
+                  marginBottom: "-20px",
                 },
                 "@media (min-width: 375px)": {
                   marginTop: "15px",
@@ -616,11 +617,16 @@ const Home = () => {
                 "@media (min-width: 768px)": {
                   marginTop: "20px",
                   marginBottom: "-10px",
-                  marginRight: "10px",
+                  marginRight: "205px",
+                },
+                "@media (min-width: 1024px)": {
+                  marginTop: "20px",
+                  marginBottom: "-10px",
+                  marginRight: "0px",
                 },
                 justifyContent: "center",
-                bottom: 40, // Always at the bottom
-                right: { xs: 155, sm: 110 }, // Moves inward on small screens
+                bottom: 40,
+                right: { xs: 155, sm: 110 },
                 zIndex: 10,
                 minWidth: 40,
                 height: { xs: 30, sm: 30, md: 40 },
@@ -638,17 +644,18 @@ const Home = () => {
 
             <Button
               className="btn-next"
+              size="medium"
               onClick={() => swiperRef.current?.slideNext()}
               sx={{
                 position: "absolute",
-                bottom: 40, // Always at the bottom
-                right: { xs: 90, sm: 50 }, // Moves inward on small screens
+                bottom: 40,
+                right: { xs: 90, sm: 50 },
                 zIndex: 10,
                 minWidth: 40,
                 height: { xs: 30, sm: 30, md: 40 },
                 "@media (min-width: 320px)": {
                   marginTop: "15px",
-                  marginBottom: "-15px",
+                  marginBottom: "-20px",
                 },
                 "@media (min-width: 375px)": {
                   marginTop: "15px",
@@ -663,7 +670,12 @@ const Home = () => {
                 "@media (min-width: 768px)": {
                   marginTop: "20px",
                   marginBottom: "-10px",
-                  marginRight: "10px",
+                  marginRight: "200px",
+                },
+                "@media (min-width: 1024px)": {
+                  marginTop: "20px",
+                  marginBottom: "-10px",
+                  marginRight: "0px",
                 },
                 bgcolor: "rgba(0,0,0,0.6)",
                 color: "white",
@@ -678,8 +690,18 @@ const Home = () => {
               sx={{
                 position: "absolute",
                 top: 0,
-                right: 10, // Align to the right
-                width: { xs: "100%", md: "49%" }, // 50% of the card width on medium+ screens
+                right: 10,
+                "@media (min-width: 320px)": {
+                  width: "93%",
+                },
+                "@media (min-width: 1024px)": {
+                  width: "49%",
+                },
+                "@media (min-width: 1500px)": {
+                  width: "49%",
+                  marginRight: "5px"
+                },
+                width: { xs: "97%", sm: "97%", md: "49%" },
                 zIndex: 10,
               }}
             >
@@ -713,20 +735,24 @@ const Home = () => {
                       display: "flex",
                       flexDirection: { xs: "column", md: "row" },
                       height: "350px",
-                      "@media (max-width: 1024px)": {
-                        height: "420px",
+                      "@media (min-width: 320px)": {
+                        height: "550px",
                       },
-                      "@media (max-width: 768px)": {
+                      "@media (min-width: 375px)": {
+                        height: "600px",
+                      },
+                      "@media (min-width: 425px)": {
+                        height: "620px",
+                      },
+                      "@media (min-width: 768px)": {
                         height: "580px",
                       },
-                      "@media (max-width: 425px)": {
-                        height: "540px",
+                      "@media (min-width: 1024px)": {
+                        height: "300px",
                       },
-                      "@media (max-width: 375px)": {
-                        height: "520px",
-                      },
-                      "@media (max-width: 320px)": {
-                        height: "500px",
+                      "@media (min-width: 1500px)": {
+                        height: "320px",
+                        width: "1210px"
                       },
                       p: 2,
                       maxWidth: "100%",
@@ -744,7 +770,10 @@ const Home = () => {
                       alt={card.title}
                       sx={{
                         width: { xs: "100%", md: "50%" },
-                        height: { xs: "auto", md: "100%" },
+                        height: { xs: "auto", md: "auto" },
+                        "@media (min-width: 768px)": {
+                          height: "300px",
+                        },
                         borderRadius: 2,
                         backgroundColor: "#e5e5e5",
                       }}
