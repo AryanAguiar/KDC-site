@@ -156,7 +156,6 @@ const Home = () => {
               textAlign: { xs: "center", sm: "center", md: "left" },
               maxWidth: { xs: "100%", sm: "65%", md: "55%" }, // Adjust width dynamically
               p: 2,
-
             }}
           >
             <Typography
@@ -210,7 +209,7 @@ const Home = () => {
                 px: { xs: 2, sm: 3, md: 4 },
                 py: { xs: 1, sm: 1.25, md: 1.5 },
                 fontSize: { xs: "12px", sm: "14px", md: "16px" },
-                marginLeft: 1
+                marginLeft: 1,
               }}
               variant="contained"
             >
@@ -227,7 +226,6 @@ const Home = () => {
               alignItems: "center",
               maxWidth: { xs: "100%", sm: "75%", md: "45%" },
               p: 2,
-
             }}
           >
             <img
@@ -245,7 +243,6 @@ const Home = () => {
           </Box>
         </Box>
       </section>
-
 
       <section
         className="about"
@@ -371,7 +368,13 @@ const Home = () => {
                   variant="caption"
                   color="text.secondary"
                   sx={{
-                    fontSize: { xs: "14px", sm: "15px", md: "16px", lg: "17px", "xl": "20px" },
+                    fontSize: {
+                      xs: "14px",
+                      sm: "15px",
+                      md: "16px",
+                      lg: "17px",
+                      xl: "20px",
+                    },
                   }}
                 >
                   {stat.subLabel}
@@ -382,7 +385,7 @@ const Home = () => {
         </Box>
       </section>
 
-      <section className="our-services" style={{ margin: "100px 0" }}>
+      <section className="our-services" style={{ margin: "50px 0" }}>
         <div className="services">
           <Typography
             variant="h2"
@@ -390,7 +393,7 @@ const Home = () => {
               fontSize: { xs: "22px", sm: "26px", md: "32px" }, // Responsive font size
               fontWeight: "bold",
               textAlign: "center",
-              padding: 5
+              padding: 5,
             }}
           >
             Our Services
@@ -438,8 +441,8 @@ const Home = () => {
                         xl: "698px",
                       },
                       height: {
-                        xs: "178px",
-                        sm: "240px",
+                        xs: "158px",
+                        sm: "200px",
                         md: "228px",
                         lg: "240px",
                         xl: "230px",
@@ -516,7 +519,7 @@ const Home = () => {
           <Box
             sx={{
               px: { xs: 7, sm: 9, md: 8, lg: 13, xl: 18 },
-              py: 3,
+              py: { xs: 3 },
               maxWidth: { xs: "100%", sm: "95%", md: "95%", lg: "90%" },
               mx: "auto",
               padding: "0px",
@@ -537,8 +540,14 @@ const Home = () => {
                 1024: { slidesPerView: 2.5 },
                 1280: { slidesPerView: 3 },
               }}
-              pagination={window.innerWidth <= 1024 ? { clickable: true } : false}
-              modules={[Pagination, Autoplay]} // Add Autoplay module here
+              pagination={
+                window.innerWidth <= 1024 ? { clickable: true } : false
+              }
+              modules={[Pagination, Autoplay]}
+              style={{
+                "--swiper-pagination-bottom": "-3px",
+                padding: "19px 0"
+              }}
             >
               {areaOfExp.map((service, index) => (
                 <SwiperSlide key={index}>
@@ -694,12 +703,16 @@ const Home = () => {
                 "@media (min-width: 320px)": {
                   width: "93%",
                 },
+                "@media (min-width: 768px)": {
+                  width: "97%",
+                  right: 9,
+                },
                 "@media (min-width: 1024px)": {
                   width: "49%",
                 },
                 "@media (min-width: 1500px)": {
                   width: "49%",
-                  marginRight: "5px"
+                  marginRight: "5px",
                 },
                 width: { xs: "97%", sm: "97%", md: "49%" },
                 zIndex: 10,
@@ -714,6 +727,11 @@ const Home = () => {
                     bgcolor: "red",
                     transition: "none",
                   },
+                  "&::before": {
+                    display: "none",
+                  },
+                  border: "none",
+                  outline: "none",
                 }}
               />
             </Box>
@@ -752,7 +770,7 @@ const Home = () => {
                       },
                       "@media (min-width: 1500px)": {
                         height: "320px",
-                        width: "1210px"
+                        width: "1210px",
                       },
                       p: 2,
                       maxWidth: "100%",
@@ -762,7 +780,6 @@ const Home = () => {
                       position: "relative",
                     }}
                   >
-
                     {/* Image Section */}
                     <CardMedia
                       component="img"
