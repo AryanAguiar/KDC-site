@@ -59,7 +59,7 @@ const Blogs = () => {
                 </motion.div>
             </Box>
 
-            <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "20px" }}>
+            <Container sx={{ display: "flex", flexDirection: "column", alignItems: "center", padding: { xs: "10px", sm: "20px" }, maxWidth: "100%", overflow: "hidden" }}>
 
                 {/* Blog Cards Wrapper with Flexbox */}
                 <Box
@@ -67,18 +67,25 @@ const Blogs = () => {
                         display: "flex",
                         flexWrap: "wrap",
                         justifyContent: "center",
-                        gap: "20px",
+                        gap: { xs: "10px", sm: "20px" },
                         marginTop: "20px",
+                        width: "100%",
                         maxWidth: "1428px"
                     }}
                 >
-                    {displayedBlogs.map((blog) => (
+                    {displayedBlogs.map((blog, index) => (
                         <motion.div
-                            key={`${blog.id} - ${page}`}
-                            style={{ display: "flex", flex: "1 1 300px" }}
+                            key={blog.id}
+                            style={{
+                                display: "flex",
+                                flex: "0 1 calc(33.33% - 32px)",  
+                                maxWidth: "454px",
+                                minWidth: "300px",
+                                justifyContent: "center",
+                            }}
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.5, delay: blog.id * 0.1 }}
+                            transition={{ duration: 0.5, delay: index * 0.1 }} 
                         >
                             <Card key={blog.id} sx={{
                                 width: "100%", maxWidth: "454px", height: "100%", maxHeight: "362px",
