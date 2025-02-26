@@ -141,7 +141,7 @@ function Navbar() {
                                                         const linkName = typeof subLink === "string" ? subLink : subLink.name;
                                                         return (
                                                             <ListItem button component={NavLink} to={linkPath} key={subIndex} sx={{ pl: 4, color: 'black' }} onClick={handleCloseDrawer}>
-                                                                <ListItemText primary={linkName} />
+                                                                <ListItemText primary={`• ${linkName}`} />
                                                             </ListItem>
                                                         );
                                                     })}
