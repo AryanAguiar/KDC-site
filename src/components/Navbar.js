@@ -45,6 +45,10 @@ function Navbar() {
         setMobileOpen(!mobileOpen);
     };
 
+    const handleCloseDrawer = () => {
+        setMobileOpen(false);
+    };
+
     const handleToggleDropdown = (page) => {
         setOpenDropdown(openDropdown === page ? null : page);
     };
@@ -55,7 +59,7 @@ function Navbar() {
             if (element) {
                 const yOffset = -40;
                 const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
-            
+
                 window.scrollTo({ top: y, behavior: "smooth" });
             }
         }
@@ -116,15 +120,15 @@ function Navbar() {
                         <IconButton size="large" onClick={handleToggleDrawer} color="inherit">
                             <MenuIcon sx={{ color: 'black' }} />
                         </IconButton>
-                        <Drawer anchor="left" open={mobileOpen} onClose={handleToggleDrawer}>
-                            <Link to="/" onClick={handleLogoClick} style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+                        <Drawer anchor="left" open={mobileOpen} onClose={handleCloseDrawer}>
+                            <Link to="/" onClick={handleCloseDrawer} style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
                                 <img src={imgLogo} alt="Logo" style={{ height: "30px", width: "75%", padding: "20px" }} />
                             </Link>
                             <List sx={{ width: 170 }}>
                                 {pages.map((page, index) => (
                                     <React.Fragment key={page}>
                                         <ListItem button onClick={() => handleToggleDropdown(page)} sx={{ color: 'black' }}>
-                                            <NavLink to={`/${page.toLowerCase()}`} style={{ textDecoration: 'none', color: 'black', flexGrow: 1 }}>
+                                            <NavLink to={`/${page.toLowerCase()}`} onClick={handleCloseDrawer} style={{ textDecoration: 'none', color: 'black', flexGrow: 1 }}>
                                                 <ListItemText primary={page} />
                                             </NavLink>
                                             {subLinks[page] ? (openDropdown === page ? <ExpandLess /> : <ExpandMore />) : null}
@@ -136,7 +140,7 @@ function Navbar() {
                                                         const linkPath = typeof subLink === "string" ? `/${subLink.toLowerCase()}` : subLink.path;
                                                         const linkName = typeof subLink === "string" ? subLink : subLink.name;
                                                         return (
-                                                            <ListItem button component={NavLink} to={linkPath} key={subIndex} sx={{ pl: 4, color: 'black' }}>
+                                                            <ListItem button component={NavLink} to={linkPath} key={subIndex} sx={{ pl: 4, color: 'black' }} onClick={handleCloseDrawer}>
                                                                 <ListItemText primary={linkName} />
                                                             </ListItem>
                                                         );
@@ -152,7 +156,7 @@ function Navbar() {
                     </Box>
 
                     {/* Desktop navigation */}
-                    <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: '40px', xl: '80px', '2xl': '100px' }, alignItems: 'center',}}>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: '40px', xl: '80px', '2xl': '100px' }, alignItems: 'center', }}>
                         {pages.map((page) => (
                             <Box
                                 key={page}
@@ -231,7 +235,7 @@ function Navbar() {
                                     px: { xs: 2, md: 3, xl: 4, '2xl': 5 },
                                     py: { xs: 1, md: 1.2, xl: 1.4, '2xl': 1.8 },
                                     fontSize: { md: '11px', xl: '13px', '2xl': '15px' },
-                                    
+
                                 }}
                             >
                                 Contact Us
