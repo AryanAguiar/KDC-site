@@ -96,10 +96,11 @@ function Navbar() {
             sx={{
                 backgroundColor: 'white',
                 boxShadow: '0px 4px 6px -2px rgba(0, 0, 0, 0.2)',
-                padding: '10px 0',
+                padding: '  0',
                 display: 'flex',
                 alignItems: 'center',
-                marginBottom: "20px"
+                marginBottom: "20px",
+        
             }}
         >
             <Container
