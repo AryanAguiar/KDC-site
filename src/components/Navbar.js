@@ -6,11 +6,17 @@ import Toolbar from '@mui/material/Toolbar';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import IconButton from '@mui/material/IconButton';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
+import Collapse from '@mui/material/Collapse';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
 import MenuIcon from '@mui/icons-material/Menu';
 import imgLogo from '../images/KDC_logo.png';
+import Drawer from '@mui/material/Drawer';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
 import { motion, useAnimation } from 'framer-motion';
+import Divider from '@mui/material/Divider';
 import './Navbar.css'
 
 const pages = ['Company', 'Services', 'Industries', 'Portfolio'];
@@ -23,52 +29,42 @@ const subLinks = {
 const activeStyles = {
     fontWeight: '600',
     color: '#161616',
-    position: 'relative',  
+    position: 'relative',
 };
 
 
 function Navbar() {
-    const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElSubMenu, setAnchorElSubMenu] = React.useState(null);
     const [activeSubMenu, setActiveSubMenu] = React.useState(null);
-    const controls = useAnimation()
+    const [mobileOpen, setMobileOpen] = React.useState(false);
+    const [openDropdown, setOpenDropdown] = React.useState(null);
 
     const location = useLocation();
+
+    const handleToggleDrawer = () => {
+        setMobileOpen(!mobileOpen);
+    };
+
+    const handleToggleDropdown = (page) => {
+        setOpenDropdown(openDropdown === page ? null : page);
+    };
 
     React.useEffect(() => {
         if (location.hash) {
             const element = document.getElementById(location.hash.substring(1));
             if (element) {
-                element.scrollIntoView({ behavior: "smooth" });
+                const yOffset = -40;
+                const y = element.getBoundingClientRect().top + window.scrollY + yOffset;
+            
+                window.scrollTo({ top: y, behavior: "smooth" });
             }
         }
     }, [location]);
 
-    const handleSubLinkClick = (event, subLink) => {
-        event.preventDefault();
-        if (typeof subLink === "string") return;
-
-        const targetId = subLink.path.split("#")[1];
-        const element = document.getElementById(targetId);
-
-        if (element) {
-            element.scrollIntoView({ behavior: "smooth" });
-            window.history.pushState(null, "", subLink.path);
-        }
-    };
-
     const handleLogoClick = () => {
         if (location.pathname === "/") {
-            window.scrollTo({ top: 0, behavior: "smooth" });  
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
-    };
-
-    const handleOpenNavMenu = (event) => {
-        setAnchorElNav(event.currentTarget);
-    };
-
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
     };
 
     const handleMouseEnter = (event, page) => {
@@ -95,10 +91,11 @@ function Navbar() {
             position="sticky"
             sx={{
                 backgroundColor: 'white',
-                boxShadow: 'none',
+                boxShadow: '0px 4px 6px -2px rgba(0, 0, 0, 0.2)',
                 padding: '10px 0',
                 display: 'flex',
                 alignItems: 'center',
+                marginBottom: "20px"
             }}
         >
             <Container
@@ -111,41 +108,51 @@ function Navbar() {
             >
                 <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
                     <Link to="/" onClick={handleLogoClick} style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
-                        <img src={imgLogo} alt="Logo" style={{ height: "30px", marginRight: "12px" }} />
+                        <img src={imgLogo} alt="Logo" style={{ height: "30px", width: "100%", marginRight: "12px" }} />
                     </Link>
 
                     {/* Mobile navigation */}
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton size="large" onClick={handleOpenNavMenu} color="inherit">
+                        <IconButton size="large" onClick={handleToggleDrawer} color="inherit">
                             <MenuIcon sx={{ color: 'black' }} />
                         </IconButton>
-                        <Menu
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
-                            transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                        >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <NavLink
-                                        to={`/${page.toLowerCase()}`}
-                                        style={({ isActive }) => (isActive ? activeStyles : { color: 'gray', textDecoration: 'none' })}
-                                    >
-                                        {page}
-                                    </NavLink>
-                                </MenuItem>
-                            ))}
-                            <MenuItem onClick={handleCloseNavMenu}>
-                                <NavLink to="/contact" style={({ isActive }) => (isActive ? activeStyles : { color: 'gray', textDecoration: 'none' })}>
-                                    Contact Us
-                                </NavLink>
-                            </MenuItem>
-                        </Menu>
+                        <Drawer anchor="left" open={mobileOpen} onClose={handleToggleDrawer}>
+                            <Link to="/" onClick={handleLogoClick} style={{ display: "flex", alignItems: "center", textDecoration: "none" }}>
+                                <img src={imgLogo} alt="Logo" style={{ height: "30px", width: "75%", padding: "20px" }} />
+                            </Link>
+                            <List sx={{ width: 170 }}>
+                                {pages.map((page, index) => (
+                                    <React.Fragment key={page}>
+                                        <ListItem button onClick={() => handleToggleDropdown(page)} sx={{ color: 'black' }}>
+                                            <NavLink to={`/${page.toLowerCase()}`} style={{ textDecoration: 'none', color: 'black', flexGrow: 1 }}>
+                                                <ListItemText primary={page} />
+                                            </NavLink>
+                                            {subLinks[page] ? (openDropdown === page ? <ExpandLess /> : <ExpandMore />) : null}
+                                        </ListItem>
+                                        {subLinks[page] && (
+                                            <Collapse in={openDropdown === page} timeout="auto" unmountOnExit>
+                                                <List component="div" disablePadding>
+                                                    {subLinks[page].map((subLink, subIndex) => {
+                                                        const linkPath = typeof subLink === "string" ? `/${subLink.toLowerCase()}` : subLink.path;
+                                                        const linkName = typeof subLink === "string" ? subLink : subLink.name;
+                                                        return (
+                                                            <ListItem button component={NavLink} to={linkPath} key={subIndex} sx={{ pl: 4, color: 'black' }}>
+                                                                <ListItemText primary={linkName} />
+                                                            </ListItem>
+                                                        );
+                                                    })}
+                                                </List>
+                                            </Collapse>
+                                        )}
+                                        {index < pages.length - 1 && <Divider />}
+                                    </React.Fragment>
+                                ))}
+                            </List>
+                        </Drawer>
                     </Box>
 
                     {/* Desktop navigation */}
-                    <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: '40px', xl: '80px', '2xl': '100px' }, alignItems: 'center', ml: { xs: 5, md: 10, xl: 20, '2xl': 40 } }}>
+                    <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: '40px', xl: '80px', '2xl': '100px' }, alignItems: 'center',}}>
                         {pages.map((page) => (
                             <Box
                                 key={page}
@@ -170,7 +177,7 @@ function Navbar() {
                                             top: '100%',
                                             left: 0,
                                             width: '100%',
-                                            height: '25px',
+                                            height: '35px',
                                             backgroundColor: 'transparent',
                                             zIndex: 5,
                                         }}
@@ -183,14 +190,14 @@ function Navbar() {
                                         sx={{
                                             position: 'absolute',
                                             top: '100%',
-                                            left: 0,
+                                            left: -1,
                                             backgroundColor: '#f5f5f5',
                                             padding: '10px',
                                             borderRadius: '8px',
                                             boxShadow: 3,
                                             zIndex: 10,
                                             minWidth: '200px',
-                                            marginTop: "20px"
+                                            marginTop: "32px"
                                         }}
                                     >
                                         <ul style={{ padding: 0, margin: 0, listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '10px' }}>
@@ -223,7 +230,8 @@ function Navbar() {
                                     borderRadius: '8px',
                                     px: { xs: 2, md: 3, xl: 4, '2xl': 5 },
                                     py: { xs: 1, md: 1.2, xl: 1.4, '2xl': 1.8 },
-                                    fontSize: { md: '11px', xl: '13px', '2xl': '15px' }
+                                    fontSize: { md: '11px', xl: '13px', '2xl': '15px' },
+                                    
                                 }}
                             >
                                 Contact Us
